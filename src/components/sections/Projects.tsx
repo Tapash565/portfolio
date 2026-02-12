@@ -28,9 +28,9 @@ const projects = [
         demo: "#"
     },
     {
-        title: "Geodata Analysis System",
-        description: "Implementing AI/ML techniques for satellite data interpretation and geodata analysis. Developing tools for automated spatial pattern recognition and mapping.",
-        tech: ["Python", "AI/ML", "Geospatial Data", "Scikit-learn"],
+        title: "Brain MRI Prediction Using CNN",
+        description: "Engineered a custom TensorFlow/Keras CNN for brain tumor detection using data augmentation and hyperparameter tuning. Achieved 94% F1-score with 12% accuracy improvement over baseline.",
+        tech: ["Python", "TensorFlow", "Keras", "Scikit-learn", "CNN"],
         icon: <Cpu className="text-pink-400" />,
         github: "https://github.com/Tapash565",
         demo: "#"

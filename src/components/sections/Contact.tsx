@@ -50,6 +50,11 @@ export default function Contact() {
                         transition={{ delay: 0.2 }}
                         className="glass-morphism p-8 md:p-12 rounded-[2rem]"
                     >
+                        <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
+                            <p className="text-sm text-amber-600 dark:text-amber-400">
+                                <strong>Note:</strong> The contact form is currently not functional as it requires backend integration. Please use the email or social links on the left to reach out directly.
+                            </p>
+                        </div>
                         <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">

@@ -25,11 +25,6 @@ export const metadata: Metadata = {
     description: "Portfolio of Tapash Kumar - Data Scientist, ML Engineer, and AI Specialist.",
     siteName: "Tapash Kumar Portfolio",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Tapash Kumar | AI & Data Science",
-    description: "Portfolio of Tapash Kumar - Data Scientist, ML Engineer, and AI Specialist.",
-  },
 };
 
 export default function RootLayout({

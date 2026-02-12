@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter, FileDown } from 'lucide-react'
+import { Github, Linkedin, Mail, FileDown } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -31,9 +31,6 @@ export default function Footer() {
                         </Link>
                         <Link href="mailto:kumar.tapash565@gmail.com" className="text-zinc-400 hover:text-blue-400 transition-colors">
                             <Mail size={20} />
-                        </Link>
-                        <Link href="https://twitter.com" target="_blank" className="text-zinc-400 hover:text-blue-400 transition-colors">
-                            <Twitter size={20} />
                         </Link>
                     </div>
                 </div>

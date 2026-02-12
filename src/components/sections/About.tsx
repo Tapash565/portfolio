@@ -12,17 +12,17 @@ const skillCategories = [
     {
         title: "ML / AI",
         icon: <BrainCircuit className="text-purple-400" />,
-        skills: ["LangChain", "FAISS", "Hugging Face", "Scikit-learn", "NLP", "CNN"]
+        skills: ["TensorFlow", "Keras", "PyTorch", "LangChain", "LangGraph", "LangSmith", "FAISS", "Hugging Face", "Scikit-learn", "NLP", "CNN", "RNN"]
     },
     {
-        title: "Tools & Frameworks",
+        title: "Data & Visualization",
         icon: <Database className="text-indigo-400" />,
-        skills: ["Streamlit", "Next.js", "Tailwind CSS", "Git", "Docker"]
+        skills: ["NumPy", "Pandas", "Matplotlib", "Seaborn", "Power BI", "Excel"]
     },
     {
-        title: "Backend & Databases",
+        title: "DevOps & Cloud",
         icon: <Laptop className="text-pink-400" />,
-        skills: ["FastAPI", "Node.js", "MySQL", "PostgreSQL"]
+        skills: ["Flask", "FastAPI", "Streamlit", "Docker", "Azure", "Git", "Jupyter", "Postman", "PostgreSQL", "MySQL"]
     }
 ]
 

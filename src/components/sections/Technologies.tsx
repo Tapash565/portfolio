@@ -38,15 +38,15 @@ export default function Technologies() {
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">Technologies</h2>
-                    <p className="text-zinc-600 dark:text-zinc-500 text-lg">Tools and frameworks I work with</p>
+                    <p className="text-zinc-500 text-lg">Tools and frameworks I work with</p>
                 </motion.div>
             </div>
 
             {/* Scrolling Container */}
             <div className="relative w-full overflow-hidden">
                 {/* Gradient overlays */}
-                <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-black to-transparent z-10" />
-                <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-black to-transparent z-10" />
+                <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+                <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
 
                 {/* Scrolling logos - First row */}
                 <div className="flex mb-8">

@@ -1,0 +1,56 @@
+TAPASH KUMAR 
+Gurugram, Haryana | +91 9315718905 | kumar.tapash565@gmail.com | LinkedIn | GitHub  
+Summary 
+Data Scientist specializing in Machine Learning and Deep Learning to solve complex analytical challenges. Proficient in build ing predictive 
+models with TensorFlow and Keras, performing advanced data modelling with SQL, and delivering actionable business insights through Power 
+BI. Experienced in deploying end-to-end AI solutions that combine technical rigor with practical scalability to drive informed decision-making. 
+Technical Skills 
+• Programming & Databases: Python, Microsoft Server SQL, PostgreSQL 
+• Data Analysis & Statistics: Data Preprocessing, Data Cleaning, Exploratory Data Analysis (EDA), Statistical Analysis, Feature Engineering 
+• Machine Learning: Supervised and Unsupervised Learning, Hyperparameter Tuning, Model Evaluation  
+• Deep Learning: Convolutional Neural Network (CNN), Recurrent Neural Networks (RNN), Natural Language Processing (NLP) 
+• Libraries & Frameworks: NumPy, Pandas, scikit-learn, TensorFlow, Keras 
+• Generative AI: Large Language Models (LLMs), LangChain, Hugging Face Transformers, Retrieval-Augmented Generation (RAG) 
+• Vector Search & Retrieval: Vector Embeddings, FAISS, Chroma, Pinecone, Semantic Search 
+• Visualization & BI Tools: Matplotlib, Seaborn, Power BI, Excel 
+• Deployment, MLOps & Cloud: Flask, FastAPI, Streamlit, Docker, CI/CD, Git/GitHub, Jupyter, Microsoft Azure 
+Experience 
+AI Engineering Intern 
+Stabor India Private Limited 
+Gurugram         Dec 2025 – Present 
+• Developed and optimized an XGBoost model achieving 15-20% improvement in demand forecast accuracy on real-time datasets. 
+• Architected high throughput data pipelines to process continuous time series streams for instantaneous model consumption. 
+• Tuned model hyperparameters including L1/L2 regularization to effectively mitigate overfitting during training. 
+Internship 
+CSIR – National Physical Laboratory (NPL) 
+New Delhi                     Jun 2025 – Jul 2025  
+• Implemented custom Allan Deviation algorithm to precisely characterize short-term and long-term noise processes in atomic clocks. 
+• Estimated atomic clock frequency drift and successfully benchmarked performance results against global BIPM reference standards. 
+• Realized 20% alignment with BIPM standards, significantly enhancing overall confidence in long-term stability assessments. 
+Internship 
+ISRO Telemetry, Tracking and Command Network (ISTRAC) 
+Bangalore         Jun 2024 – Jul 2024  
+• Refined a microwave cavity design in Ansys to target a specific TE011 mode frequency of 1.42040575177 GHz. 
+• Attained high precise frequency alignment with a minimal 43.99 Hz deviation, significantly boosting Hydrogen Maser stability. 
+• Optimized cavity Q-factor performance through material property exploration, enhancing signal quality for precise timing. 
+Projects 
+NLP-Based Movie Recommendation System 
+Tech Stack: Python, Streamlit, LangChain, FAISS, Hugging Face 
+• Engineered a scalable movie recommender system using LangChain and Hugging Face embeddings to process extensive film synopses. 
+• Reduced latency to sub-second response times by implementing a high-performance FAISS vector search index for rapid retrieval. 
+• Deployed an interactive web application via Streamlit to provide users with real time personalized suggestions. 
+Brain MRI Prediction Using CNN 
+Tech Stack: Python, Scikit-learn, Tensorflow, Keras, Matplotlib, Seaborn 
+• Engineered a custom TensorFlow/Keras CNN for brain tumor detection using data augmentation and hyperparameter tuning. 
+• Increased model accuracy by 12% over the baseline through rigorous image preprocessing and architectural refinement. 
+• Evaluated model performance metrics using scikit-learn, maintaining a 94% F1-score to balance sensitivity and specificity. 
+Certificates 
+• Google Data Analytics Professional Certificate 
+• IBM AI Enterprise Workflow 
+• Pregrad Machine Learning Course  
+• IIRS AI/ML for Geodata Analysis 
+Education 
+B. Tech – Engineering Physics 
+Delhi Technological University (DTU) 
+New Delhi                     Oct 2022 – May 2026 
+

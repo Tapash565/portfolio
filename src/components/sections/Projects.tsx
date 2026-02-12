@@ -3,6 +3,12 @@
 import { motion } from 'framer-motion'
 import { Github, ExternalLink, Database, Cpu, MessageSquare } from 'lucide-react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+
+const FloatingShapes = dynamic(
+    () => import('@/components/three/FloatingShapes'),
+    { ssr: false }
+)
 
 const projects = [
     {
@@ -33,8 +39,11 @@ const projects = [
 
 export default function Projects() {
     return (
-        <section id="projects" className="py-24 bg-black/40">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="projects" className="relative py-24 overflow-hidden">
+            {/* 3D Floating Shapes Background */}
+            <FloatingShapes className="opacity-60" />
+
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -91,6 +100,9 @@ export default function Projects() {
                     ))}
                 </div>
             </div>
+
+            {/* Gradient overlay for depth */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
         </section>
     )
 }

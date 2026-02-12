@@ -29,11 +29,6 @@ export default function Home() {
       </section>
 
       <Footer />
-
-      {/* Decorative background elements */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.03)_0%,transparent_50%)]" />
-      </div>
     </main>
   );
 }

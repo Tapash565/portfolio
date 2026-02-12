@@ -1,7 +1,13 @@
 "use client"
 
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { Code2, BrainCircuit, Database, Laptop } from 'lucide-react'
+
+const MorphingBlobs = dynamic(
+  () => import('@/components/three/MorphingBlobs'),
+  { ssr: false }
+)
 
 const skillCategories = [
     {
@@ -29,6 +35,7 @@ const skillCategories = [
 export default function About() {
     return (
         <section id="about" className="py-24 relative overflow-hidden">
+            <MorphingBlobs className="opacity-30" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <motion.div

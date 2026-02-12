@@ -1,13 +1,13 @@
 # Portfolio Website
 
-A modern, responsive portfolio website built with Next.js 15, TypeScript, and Tailwind CSS.
+A modern, responsive portfolio website built with Next.js 14, TypeScript, and Tailwind CSS.
 
 ## Features
 
 - 🎨 Modern, clean design with dark mode support
 - 📱 Fully responsive layout
-- ⚡ Built with Next.js 15 App Router for optimal performance
-- 🎯 TypeScript for type safety
+- ⚡ Built with Next.js 14 App Router for optimal performance
+- 🎯 TypeScript for type safety + Three.js 3D background + Three.js 3D background
 - 💅 Tailwind CSS for styling
 - 🔍 SEO optimized with metadata and sitemap
 - ♿ Accessible components
@@ -94,7 +94,7 @@ This project is ready to deploy on Vercel, Netlify, or any platform that support
 
 ## Tech Stack
 
-- **Framework**: Next.js 15
+- **Framework**: Next.js 14
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Font**: Inter (Google Fonts)

@@ -3,15 +3,19 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Download } from 'lucide-react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+
+// Dynamically import Three.js component to avoid SSR issues
+const SpaceScene = dynamic(
+    () => import('@/components/three/SpaceScene'),
+    { ssr: false }
+)
 
 export default function Hero() {
     return (
         <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-            {/* Animated Background */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[128px] animate-pulse" />
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[128px] animate-pulse delay-1000" />
-            </div>
+            {/* 3D Animated Background */}
+            <SpaceScene />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center space-y-8">

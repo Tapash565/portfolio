@@ -38,10 +38,10 @@ export default function Experience() {
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">Professional Journey</h2>
-                    <p className="text-zinc-500 text-lg">My career path in the world of data and intelligence.</p>
+                    <p className="text-zinc-600 dark:text-zinc-500 text-lg">My career path in the world of data and intelligence.</p>
                 </motion.div>
 
-                <div className="relative border-l border-zinc-800 ml-4 md:ml-0 md:left-1/2 md:-translate-x-1/2">
+                <div className="relative border-l border-zinc-300 dark:border-zinc-800 ml-4 md:ml-0 md:left-1/2 md:-translate-x-1/2">
                     {experiences.map((exp, idx) => (
                         <motion.div
                             key={idx}
@@ -55,7 +55,7 @@ export default function Experience() {
                             <div className="hidden md:block w-[45%]" />
 
                             {/* Dot */}
-                            <div className="absolute left-[-9px] md:left-1/2 md:ml-[-10px] w-5 h-5 bg-blue-500 rounded-full border-4 border-black z-10" />
+                            <div className="absolute left-[-9px] md:left-1/2 md:ml-[-10px] w-5 h-5 bg-blue-500 rounded-full border-4 border-white dark:border-black z-10" />
 
                             <div className="w-[calc(100%-2rem)] md:w-[45%] glass-morphism p-6 md:p-8 rounded-3xl hover:border-blue-500/30 transition-colors">
                                 <div className="flex items-center gap-3 mb-2 text-blue-400">
@@ -63,8 +63,8 @@ export default function Experience() {
                                     <span className="text-sm font-bold tracking-widest uppercase">{exp.period}</span>
                                 </div>
                                 <h3 className="text-2xl font-bold mb-1">{exp.role}</h3>
-                                <p className="text-zinc-300 font-medium mb-4">{exp.company}</p>
-                                <p className="text-zinc-500 text-sm leading-relaxed">
+                                <p className="text-zinc-700 dark:text-zinc-300 font-medium mb-4">{exp.company}</p>
+                                <p className="text-zinc-600 dark:text-zinc-500 text-sm leading-relaxed">
                                     {exp.description}
                                 </p>
                             </div>

@@ -30,10 +30,10 @@ export default function Hero() {
                         <h1 className="text-5xl md:text-8xl font-bold tracking-tight mb-4">
                             Tapash Kumar
                         </h1>
-                        <h2 className="text-2xl md:text-4xl font-semibold text-zinc-400 mb-6">
+                        <h2 className="text-2xl md:text-4xl font-semibold text-zinc-600 dark:text-zinc-400 mb-6">
                             Data Scientist | ML Engineer | AI Engineer
                         </h2>
-                        <p className="text-zinc-500 text-lg md:text-xl max-w-2xl mx-auto italic">
+                        <p className="text-zinc-500 dark:text-zinc-500 text-lg md:text-xl max-w-2xl mx-auto italic">
                             “Transforming Data into Intelligent Solutions”
                         </p>
                     </motion.div>
@@ -46,7 +46,7 @@ export default function Hero() {
                     >
                         <Link
                             href="#projects"
-                            className="group px-8 py-4 bg-white text-black rounded-full font-bold flex items-center gap-2 hover:bg-zinc-200 transition-all"
+                            className="group px-8 py-4 bg-zinc-900 text-white dark:bg-white dark:text-black rounded-full font-bold flex items-center gap-2 hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-all"
                             onClick={(e) => {
                                 e.preventDefault();
                                 document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -71,10 +71,10 @@ export default function Hero() {
             <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 text-zinc-500"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 text-zinc-400 dark:text-zinc-500"
             >
-                <div className="w-6 h-10 border-2 border-zinc-500 rounded-full flex justify-center p-1">
-                    <div className="w-1 h-2 bg-zinc-500 rounded-full" />
+                <div className="w-6 h-10 border-2 border-zinc-400 dark:border-zinc-500 rounded-full flex justify-center p-1">
+                    <div className="w-1 h-2 bg-zinc-400 dark:bg-zinc-500 rounded-full" />
                 </div>
             </motion.div>
         </section>

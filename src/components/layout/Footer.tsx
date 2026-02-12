@@ -3,12 +3,12 @@ import Link from 'next/link'
 
 export default function Footer() {
     return (
-        <footer className="py-12 border-t border-white/5 bg-black/20">
+        <footer className="py-12 border-t border-zinc-200 dark:border-white/5 bg-zinc-50 dark:bg-black/20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="text-center md:text-left">
                         <h2 className="text-xl font-bold gradient-text mb-2">Tapash Kumar</h2>
-                        <p className="text-zinc-500 text-sm max-w-xs">
+                        <p className="text-zinc-600 dark:text-zinc-500 text-sm max-w-xs">
                             Building the future of intelligent systems through Data Science and AI Engineering.
                         </p>
                     </div>
@@ -38,8 +38,8 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-white/5 text-center">
-                    <p className="text-zinc-600 text-xs">
+                <div className="mt-8 pt-8 border-t border-zinc-200 dark:border-white/5 text-center">
+                    <p className="text-zinc-500 dark:text-zinc-600 text-xs">
                         © {new Date().getFullYear()} Tapash Kumar. All rights reserved.
                     </p>
                 </div>

@@ -45,7 +45,7 @@ export default function About() {
                         transition={{ duration: 0.6 }}
                     >
                         <h2 className="text-3xl md:text-5xl font-bold mb-8">About Me</h2>
-                        <div className="space-y-6 text-zinc-400 text-lg leading-relaxed">
+                        <div className="space-y-6 text-zinc-700 dark:text-zinc-400 text-lg leading-relaxed">
                             <p>
                                 I am a Data Scientist and AI Engineer currently pursuing my B.Tech in Engineering Physics from
                                 <strong> Delhi Technological University (DTU)</strong>. My expertise lies in building
@@ -78,7 +78,7 @@ export default function About() {
                             >
                                 <div className="flex items-center gap-3 mb-4">
                                     {category.icon}
-                                    <h3 className="font-bold text-white uppercase tracking-wider text-sm">
+                                    <h3 className="font-bold text-zinc-900 dark:text-white uppercase tracking-wider text-sm">
                                         {category.title}
                                     </h3>
                                 </div>
@@ -86,7 +86,7 @@ export default function About() {
                                     {category.skills.map(skill => (
                                         <span
                                             key={skill}
-                                            className="px-3 py-1 bg-white/5 rounded-md text-zinc-400 text-xs hover:bg-white/10 hover:text-white transition-all"
+                                            className="px-3 py-1 bg-zinc-100 dark:bg-white/5 rounded-md text-zinc-600 dark:text-zinc-400 text-xs hover:bg-zinc-200 dark:hover:bg-white/10 hover:text-zinc-900 dark:hover:text-white transition-all"
                                         >
                                             {skill}
                                         </span>

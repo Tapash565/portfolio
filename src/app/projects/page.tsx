@@ -12,9 +12,9 @@ export default function ProjectsPage() {
       <Projects />
 
       {/* Additional niche projects or a call to action could go here */}
-      <section className="py-12 border-t border-white/5">
+      <section className="py-12 border-t border-zinc-200 dark:border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-zinc-500 italic">
+          <p className="text-zinc-600 dark:text-zinc-500 italic">
             &quot;More projects are available on my GitHub profile.&quot;
           </p>
         </div>

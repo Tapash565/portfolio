@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 interface SpaceSceneProps {
@@ -18,6 +18,27 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
   const planetsRef = useRef<THREE.Mesh[]>([]);
   const starsRef = useRef<THREE.Points | null>(null);
   const nebulasRef = useRef<THREE.Points[]>([]);
+  const [isDark, setIsDark] = useState(true);
+
+  // Theme detection
+  useEffect(() => {
+    const checkTheme = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
+
+    // Initial check
+    checkTheme();
+
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -29,8 +50,9 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
 
     // Scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
-    scene.fog = new THREE.Fog(0x000000, 10, 400);
+    const bgColor = isDark ? 0x000000 : 0x0a0e1a;
+    scene.background = new THREE.Color(bgColor);
+    scene.fog = new THREE.Fog(bgColor, 10, 400);
     sceneRef.current = scene;
 
     // Camera setup
@@ -49,28 +71,28 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
     rendererRef.current = renderer;
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, isDark ? 0.2 : 0.4);
     scene.add(ambientLight);
 
-    const blueLight = new THREE.PointLight(0x3b82f6, 2, 300);
+    const blueLight = new THREE.PointLight(isDark ? 0x3b82f6 : 0x2563eb, isDark ? 2 : 1.5, 300);
     blueLight.position.set(-50, 50, -100);
     scene.add(blueLight);
 
-    const purpleLight = new THREE.PointLight(0xa855f7, 2, 300);
+    const purpleLight = new THREE.PointLight(isDark ? 0xa855f7 : 0x7c3aed, isDark ? 2 : 1.5, 300);
     purpleLight.position.set(50, -50, -150);
     scene.add(purpleLight);
 
     // Create planets
     const planetConfigs = [
-      { radius: isMobile ? 8 : 12, position: [-30, 15, -120] as [number, number, number], color: 0x3b82f6, emissive: 0x1e40af, rotationSpeed: 0.001 },
-      { radius: isMobile ? 6 : 9, position: [40, -20, -180] as [number, number, number], color: 0x6366f1, emissive: 0x4338ca, rotationSpeed: 0.0015 },
-      { radius: isMobile ? 10 : 15, position: [-50, -30, -250] as [number, number, number], color: 0xa855f7, emissive: 0x7c3aed, rotationSpeed: 0.0008 },
+      { radius: isMobile ? 8 : 12, position: [-30, 15, -120] as [number, number, number], color: isDark ? 0x3b82f6 : 0x2563eb, emissive: isDark ? 0x1e40af : 0x1e3a8a, rotationSpeed: 0.001 },
+      { radius: isMobile ? 6 : 9, position: [40, -20, -180] as [number, number, number], color: isDark ? 0x6366f1 : 0x4f46e5, emissive: isDark ? 0x4338ca : 0x3730a3, rotationSpeed: 0.0015 },
+      { radius: isMobile ? 10 : 15, position: [-50, -30, -250] as [number, number, number], color: isDark ? 0xa855f7 : 0x7c3aed, emissive: isDark ? 0x7c3aed : 0x6d28d9, rotationSpeed: 0.0008 },
     ];
 
     if (!isMobile) {
       planetConfigs.push(
-        { radius: 7, position: [60, 40, -200] as [number, number, number], color: 0x06b6d4, emissive: 0x0891b2, rotationSpeed: 0.0012 },
-        { radius: 11, position: [20, -50, -300] as [number, number, number], color: 0x8b5cf6, emissive: 0x6d28d9, rotationSpeed: 0.001 }
+        { radius: 7, position: [60, 40, -200] as [number, number, number], color: isDark ? 0x06b6d4 : 0x0891b2, emissive: isDark ? 0x0891b2 : 0x0e7490, rotationSpeed: 0.0012 },
+        { radius: 11, position: [20, -50, -300] as [number, number, number], color: isDark ? 0x8b5cf6 : 0x6d28d9, emissive: isDark ? 0x6d28d9 : 0x5b21b6, rotationSpeed: 0.001 }
       );
     }
 
@@ -79,7 +101,7 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
       const material = new THREE.MeshStandardMaterial({
         color: config.color,
         emissive: config.emissive,
-        emissiveIntensity: 0.3,
+        emissiveIntensity: isDark ? 0.3 : 0.5,
         roughness: 0.7,
         metalness: 0.3,
       });
@@ -112,11 +134,28 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
       starPositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
       starPositions[i * 3 + 2] = -radius * Math.cos(phi) - 50; // Shift back
 
-      // Star colors (white to cyan)
-      const colorMix = Math.random();
-      starColors[i * 3] = 0.8 + colorMix * 0.2;
-      starColors[i * 3 + 1] = 0.8 + colorMix * 0.2;
-      starColors[i * 3 + 2] = 1;
+      // Star colors - theme aware
+      if (isDark) {
+        // Dark mode: white to cyan stars
+        const colorMix = Math.random();
+        starColors[i * 3] = 0.8 + colorMix * 0.2;
+        starColors[i * 3 + 1] = 0.8 + colorMix * 0.2;
+        starColors[i * 3 + 2] = 1;
+      } else {
+        // Light mode: darker blues and purples
+        const colorChoice = Math.random();
+        if (colorChoice > 0.7) {
+          // Purple stars
+          starColors[i * 3] = 0.5 + Math.random() * 0.3;
+          starColors[i * 3 + 1] = 0.3 + Math.random() * 0.2;
+          starColors[i * 3 + 2] = 0.7 + Math.random() * 0.3;
+        } else {
+          // Blue stars
+          starColors[i * 3] = 0.2 + Math.random() * 0.3;
+          starColors[i * 3 + 1] = 0.3 + Math.random() * 0.4;
+          starColors[i * 3 + 2] = 0.6 + Math.random() * 0.4;
+        }
+      }
 
       // Star sizes
       starSizes[i] = Math.random() * 2 + 0.5;
@@ -130,7 +169,7 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
       size: isMobile ? 1.5 : 2,
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: isDark ? 0.8 : 0.6,
       sizeAttenuation: true,
     });
 
@@ -140,11 +179,17 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
 
     // Create nebula clouds (only on desktop for performance)
     if (!isMobile) {
-      const nebulaConfigs = [
-        { count: 800, position: [-80, 30, -200], color: 0xa855f7, spread: 40 },
-        { count: 1000, position: [70, -40, -280], color: 0x3b82f6, spread: 50 },
-        { count: 600, position: [0, 60, -350], color: 0x6366f1, spread: 35 },
-      ];
+      const nebulaConfigs = isDark 
+        ? [
+            { count: 800, position: [-80, 30, -200], color: 0xa855f7, spread: 40 },
+            { count: 1000, position: [70, -40, -280], color: 0x3b82f6, spread: 50 },
+            { count: 600, position: [0, 60, -350], color: 0x6366f1, spread: 35 },
+          ]
+        : [
+            { count: 800, position: [-80, 30, -200], color: 0xc4b5fd, spread: 40 },
+            { count: 1000, position: [70, -40, -280], color: 0x93c5fd, spread: 50 },
+            { count: 600, position: [0, 60, -350], color: 0xa5b4fc, spread: 35 },
+          ];
 
       nebulaConfigs.forEach((config) => {
         const nebulaGeometry = new THREE.BufferGeometry();
@@ -165,7 +210,7 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
           size: 5,
           color: config.color,
           transparent: true,
-          opacity: 0.4,
+          opacity: isDark ? 0.4 : 0.3,
           blending: THREE.AdditiveBlending,
           sizeAttenuation: true,
         });
@@ -313,7 +358,7 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
       cameraRef.current = null;
       rendererRef.current = null;
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <div

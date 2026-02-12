@@ -1,8 +1,33 @@
 @import "tailwindcss";
 
 :root {
+  /* Light mode colors */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --text-primary: #0a0a0a;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+  --accent-blue: #2563eb;
+  --accent-indigo: #4f46e5;
+  --accent-purple: #7c3aed;
+}
+
+.dark {
+  /* Dark mode colors */
   --background: #000000;
   --foreground: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent-blue: #60a5fa;
+  --accent-indigo: #818cf8;
+  --accent-purple: #a78bfa;
 }
 
 @theme inline {
@@ -16,29 +41,42 @@
   }
   
   body {
-    background-color: black;
-    color: white;
+    background-color: var(--background);
+    color: var(--text-primary);
     min-height: 100vh;
     @apply antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
 @layer utilities {
   .glass-morphism {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--glass-bg);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 bg-clip-text text-transparent underline-offset-4 pointer-events-none;
+    @apply bg-gradient-to-r bg-clip-text text-transparent underline-offset-4 pointer-events-none;
+    background-image: linear-gradient(
+      to right,
+      var(--accent-blue),
+      var(--accent-indigo),
+      var(--accent-purple)
+    );
   }
 
   .gradient-border {
     position: relative;
     border-radius: 0.75rem;
     padding: 1px;
-    background: linear-gradient(to right, rgba(59, 130, 246, 0.5), rgba(168, 85, 247, 0.5));
+    background: linear-gradient(
+      to right,
+      var(--accent-blue),
+      var(--accent-purple)
+    );
+    opacity: 0.5;
   }
 }
 

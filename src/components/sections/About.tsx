@@ -1,13 +1,7 @@
 "use client"
 
-import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { Code2, BrainCircuit, Database, Laptop } from 'lucide-react'
-
-const MorphingBlobs = dynamic(
-  () => import('@/components/three/MorphingBlobs'),
-  { ssr: false }
-)
 
 const skillCategories = [
     {
@@ -35,7 +29,6 @@ const skillCategories = [
 export default function About() {
     return (
         <section id="about" className="py-24 relative overflow-hidden">
-            <MorphingBlobs className="opacity-30" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <motion.div
@@ -44,8 +37,8 @@ export default function About() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h2 className="text-3xl md:text-5xl font-bold mb-8">About Me</h2>
-                        <div className="space-y-6 text-zinc-700 dark:text-zinc-400 text-lg leading-relaxed">
+                        <h2 className="text-3xl md:text-5xl font-bold mb-8 text-white">About Me</h2>
+                        <div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
                             <p>
                                 I am a Data Scientist and AI Engineer currently pursuing my B.Tech in Engineering Physics from
                                 <strong> Delhi Technological University (DTU)</strong>. My expertise lies in building
@@ -78,7 +71,7 @@ export default function About() {
                             >
                                 <div className="flex items-center gap-3 mb-4">
                                     {category.icon}
-                                    <h3 className="font-bold text-zinc-900 dark:text-white uppercase tracking-wider text-sm">
+                                    <h3 className="font-bold text-white uppercase tracking-wider text-sm">
                                         {category.title}
                                     </h3>
                                 </div>
@@ -86,7 +79,7 @@ export default function About() {
                                     {category.skills.map(skill => (
                                         <span
                                             key={skill}
-                                            className="px-3 py-1 bg-zinc-100 dark:bg-white/5 rounded-md text-zinc-600 dark:text-zinc-400 text-xs hover:bg-zinc-200 dark:hover:bg-white/10 hover:text-zinc-900 dark:hover:text-white transition-all"
+                                            className="px-3 py-1 bg-white/5 rounded-md text-zinc-400 text-xs hover:bg-white/10 hover:text-white transition-all"
                                         >
                                             {skill}
                                         </span>

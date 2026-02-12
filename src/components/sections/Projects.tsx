@@ -50,8 +50,8 @@ export default function Projects() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4">Featured Work</h2>
-                        <p className="text-zinc-600 dark:text-zinc-500 text-lg max-w-xl">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Featured Work</h2>
+                        <p className="text-zinc-400 text-lg max-w-xl">
                             A selection of projects where I&#39;ve applied machine learning and data science to solve real-world problems.
                         </p>
                     </motion.div>
@@ -73,25 +73,25 @@ export default function Projects() {
                             <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 {project.icon}
                             </div>
-                            <h3 className="text-2xl font-bold mb-4">{project.title}</h3>
-                            <p className="text-zinc-600 dark:text-zinc-400 mb-6 line-clamp-3 text-sm leading-relaxed">
+                            <h3 className="text-2xl font-bold mb-4 text-white">{project.title}</h3>
+                            <p className="text-zinc-400 mb-6 line-clamp-3 text-sm leading-relaxed">
                                 {project.description}
                             </p>
 
                             <div className="flex flex-wrap gap-2 mb-8">
                                 {project.tech.map(t => (
-                                    <span key={t} className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500 border border-zinc-300 dark:border-zinc-800 px-2 py-1 rounded-md">
+                                    <span key={t} className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 border border-zinc-800 px-2 py-1 rounded-md">
                                         {t}
                                     </span>
                                 ))}
                             </div>
 
-                            <div className="flex items-center gap-4 pt-4 border-t border-zinc-200 dark:border-white/5">
-                                <Link href={project.github} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
+                            <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                                <Link href={project.github} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors">
                                     <Github size={16} />
                                     Code
                                 </Link>
-                                <Link href={project.demo} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors ml-auto">
+                                <Link href={project.demo} className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors ml-auto">
                                     <ExternalLink size={16} />
                                     Live Demo
                                 </Link>
@@ -102,7 +102,7 @@ export default function Projects() {
             </div>
 
             {/* Gradient overlay for depth */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-black dark:via-transparent dark:to-black pointer-events-none\" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
         </section>
     )
 }

@@ -19,9 +19,9 @@
   /* Dark mode colors */
   --background: #000000;
   --foreground: #ffffff;
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
   --text-primary: #ffffff;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
@@ -38,6 +38,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
   
   body {
@@ -47,14 +48,20 @@
     @apply antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
+
+  section {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
 }
 
 @layer utilities {
   .glass-morphism {
     background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
   }
 
   .gradient-text {

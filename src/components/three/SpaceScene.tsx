@@ -5,9 +5,15 @@ import * as THREE from 'three';
 
 interface SpaceSceneProps {
   className?: string;
+  disableScrollAnimation?: boolean;
+  rotationSpeedMultiplier?: number;
 }
 
-export default function SpaceScene({ className = '' }: SpaceSceneProps) {
+export default function SpaceScene({ 
+  className = '', 
+  disableScrollAnimation = false,
+  rotationSpeedMultiplier = 1 
+}: SpaceSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -15,7 +21,6 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
   const rafRef = useRef<number>(0);
   const mouseRef = useRef({ x: 0, y: 0 });
   const scrollRef = useRef(0);
-  const planetsRef = useRef<THREE.Mesh[]>([]);
   const starsRef = useRef<THREE.Points | null>(null);
   const nebulasRef = useRef<THREE.Points[]>([]);
   const [isDark, setIsDark] = useState(true);
@@ -81,41 +86,6 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
     const purpleLight = new THREE.PointLight(isDark ? 0xa855f7 : 0x7c3aed, isDark ? 2 : 1.5, 300);
     purpleLight.position.set(50, -50, -150);
     scene.add(purpleLight);
-
-    // Create planets
-    const planetConfigs = [
-      { radius: isMobile ? 8 : 12, position: [-30, 15, -120] as [number, number, number], color: isDark ? 0x3b82f6 : 0x2563eb, emissive: isDark ? 0x1e40af : 0x1e3a8a, rotationSpeed: 0.001 },
-      { radius: isMobile ? 6 : 9, position: [40, -20, -180] as [number, number, number], color: isDark ? 0x6366f1 : 0x4f46e5, emissive: isDark ? 0x4338ca : 0x3730a3, rotationSpeed: 0.0015 },
-      { radius: isMobile ? 10 : 15, position: [-50, -30, -250] as [number, number, number], color: isDark ? 0xa855f7 : 0x7c3aed, emissive: isDark ? 0x7c3aed : 0x6d28d9, rotationSpeed: 0.0008 },
-    ];
-
-    if (!isMobile) {
-      planetConfigs.push(
-        { radius: 7, position: [60, 40, -200] as [number, number, number], color: isDark ? 0x06b6d4 : 0x0891b2, emissive: isDark ? 0x0891b2 : 0x0e7490, rotationSpeed: 0.0012 },
-        { radius: 11, position: [20, -50, -300] as [number, number, number], color: isDark ? 0x8b5cf6 : 0x6d28d9, emissive: isDark ? 0x6d28d9 : 0x5b21b6, rotationSpeed: 0.001 }
-      );
-    }
-
-    planetConfigs.forEach((config) => {
-      const geometry = new THREE.SphereGeometry(config.radius, isMobile ? 24 : 32, isMobile ? 16 : 24);
-      const material = new THREE.MeshStandardMaterial({
-        color: config.color,
-        emissive: config.emissive,
-        emissiveIntensity: isDark ? 0.3 : 0.5,
-        roughness: 0.7,
-        metalness: 0.3,
-      });
-      const planet = new THREE.Mesh(geometry, material);
-      planet.position.set(...config.position);
-      planet.userData = { 
-        rotationSpeed: config.rotationSpeed,
-        orbitRadius: Math.sqrt(config.position[0] ** 2 + config.position[1] ** 2) * 0.1,
-        orbitSpeed: config.rotationSpeed * 0.3,
-        orbitOffset: Math.random() * Math.PI * 2,
-      };
-      scene.add(planet);
-      planetsRef.current.push(planet);
-    });
 
     // Create star field
     const starCount = isMobile ? 1000 : 2500;
@@ -216,7 +186,7 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
         });
 
         const nebula = new THREE.Points(nebulaGeometry, nebulaMaterial);
-        nebula.userData = { baseScale: 1, pulseSpeed: 0.001 + Math.random() * 0.001 };
+        nebula.userData = { baseScale: 1, pulseSpeed: 0.0015 }; // Fixed pulse speed for consistency
         scene.add(nebula);
         nebulasRef.current.push(nebula);
       });
@@ -229,20 +199,16 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
       mouseRef.current.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
     };
 
-    // Scroll handler
+    // Scroll handler - Full page scroll tracking
     const handleScroll = () => {
-      const heroSection = document.querySelector('main > section:first-child');
-      if (heroSection) {
-        const heroRect = heroSection.getBoundingClientRect();
-        const heroHeight = heroRect.height;
-        const visibleHeight = Math.min(heroRect.bottom, window.innerHeight) - Math.max(heroRect.top, 0);
-        
-        // Calculate scroll progress within hero section
-        if (heroRect.top <= 0) {
-          scrollRef.current = Math.min(Math.abs(heroRect.top) / heroHeight, 1);
-        } else {
-          scrollRef.current = 0;
-        }
+      // Calculate scroll progress for entire page (0 to 1)
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      
+      if (docHeight > 0) {
+        scrollRef.current = Math.min(scrollTop / docHeight, 1);
+      } else {
+        scrollRef.current = 0;
       }
     };
 
@@ -269,46 +235,42 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
 
     // Animation loop
     let time = 0;
+    let lastTime = performance.now();
     const animate = () => {
       rafRef.current = requestAnimationFrame(animate);
-      time += 0.01;
+      
+      // Delta time for smooth, frame-rate independent animations
+      const currentTime = performance.now();
+      const deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+      lastTime = currentTime;
+      time += deltaTime;
 
-      // Animate planets
-      planetsRef.current.forEach((planet, index) => {
-        // Rotation
-        planet.rotation.y += planet.userData.rotationSpeed;
-        planet.rotation.x += planet.userData.rotationSpeed * 0.5;
-
-        // Subtle orbital movement
-        const orbitTime = time * planet.userData.orbitSpeed + planet.userData.orbitOffset;
-        const baseX = planet.position.x;
-        const baseY = planet.position.y;
-        planet.position.x = baseX + Math.cos(orbitTime) * planet.userData.orbitRadius;
-        planet.position.y = baseY + Math.sin(orbitTime) * planet.userData.orbitRadius;
-      });
-
-      // Twinkle stars
+      // Twinkle stars - smoother animation
       if (starsRef.current) {
         const sizes = starsRef.current.geometry.attributes.size.array as Float32Array;
         for (let i = 0; i < sizes.length; i++) {
           const baseSize = 0.5 + (i % 3) * 0.5;
-          sizes[i] = baseSize + Math.sin(time * 2 + i * 0.1) * 0.3;
+          sizes[i] = baseSize + Math.sin(time * 1.5 + i * 0.05) * 0.2;
         }
         starsRef.current.geometry.attributes.size.needsUpdate = true;
       }
 
-      // Pulse nebulas
+      // Pulse nebulas - consistent smooth pulsing
       nebulasRef.current.forEach((nebula) => {
-        const scale = 1 + Math.sin(time * nebula.userData.pulseSpeed * 100) * 0.15;
+        const scale = 1 + Math.sin(time * nebula.userData.pulseSpeed) * 0.12;
         nebula.scale.setScalar(scale);
-        nebula.rotation.z += 0.0002;
+        nebula.rotation.z += 0.0002 * deltaTime * 60 * rotationSpeedMultiplier;
       });
 
-      // Camera movement based on scroll
-      const targetZ = scrollRef.current * -150; // Move forward up to 150 units
-      const targetY = scrollRef.current * 20; // Move up slightly
-      camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
-      camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
+      // Camera movement based on scroll - Enhanced for full page journey
+      if (!disableScrollAnimation) {
+        const targetZ = scrollRef.current * -400; // Move forward up to 400 units for dramatic effect
+        const targetY = scrollRef.current * 50; // Move up more significantly
+        const targetX = Math.sin(scrollRef.current * Math.PI * 0.5) * 30; // Gentle horizontal drift
+        camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
+        camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
+        camera.position.x = THREE.MathUtils.lerp(camera.position.x, targetX, 0.05);
+      }
 
       // Mouse parallax (subtle)
       camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, mouseRef.current.x * 0.02, 0.05);
@@ -327,11 +289,6 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
       window.removeEventListener('resize', handleResize);
 
       // Dispose geometries
-      planetsRef.current.forEach((planet) => {
-        planet.geometry.dispose();
-        (planet.material as THREE.Material).dispose();
-      });
-
       if (starsRef.current) {
         starsRef.current.geometry.dispose();
         (starsRef.current.material as THREE.Material).dispose();
@@ -351,7 +308,6 @@ export default function SpaceScene({ className = '' }: SpaceSceneProps) {
       }
 
       // Clear refs
-      planetsRef.current = [];
       nebulasRef.current = [];
       starsRef.current = null;
       sceneRef.current = null;

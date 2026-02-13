@@ -22,19 +22,21 @@ const skillCategories = [
     {
         title: "DevOps & Cloud",
         icon: <Laptop className="text-pink-400" />,
-        skills: ["Flask", "FastAPI", "Streamlit", "Docker", "Azure", "Git", "Jupyter", "Postman", "PostgreSQL", "MySQL"]
+        skills: ["FastAPI", "Streamlit", "Docker", "Azure", "Git", "Jupyter", "Postman", "PostgreSQL", "MySQL"]
     }
 ]
 
 export default function About() {
     return (
-        <section id="about" className="py-24 relative overflow-hidden">
+        <section id="about" className="py-24 relative overflow-hidden transition-all duration-500">
+            {/* Subtle background overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40" />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6 }}
                     >
                         <h2 className="text-3xl md:text-5xl font-bold mb-8 text-white">About Me</h2>
@@ -60,14 +62,18 @@ export default function About() {
                     <motion.div
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6 }}
                         className="grid grid-cols-1 sm:grid-cols-2 gap-6"
                     >
                         {skillCategories.map((category, idx) => (
-                            <div
+                            <motion.div
                                 key={idx}
-                                className="p-6 glass-morphism rounded-2xl hover:border-white/20 transition-colors group"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                className="p-6 glass-morphism rounded-2xl hover:border-white/20 hover:bg-white/10 transition-all duration-300 group"
                             >
                                 <div className="flex items-center gap-3 mb-4">
                                     {category.icon}
@@ -85,7 +91,7 @@ export default function About() {
                                         </span>
                                     ))}
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </motion.div>
                 </div>

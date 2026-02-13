@@ -3,12 +3,6 @@
 import { motion } from 'framer-motion'
 import { Github, ExternalLink, Database, Cpu, MessageSquare } from 'lucide-react'
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
-
-const SpaceScene = dynamic(
-    () => import('@/components/three/SpaceScene'),
-    { ssr: false }
-)
 
 const projects = [
     {
@@ -39,16 +33,16 @@ const projects = [
 
 export default function Projects() {
     return (
-        <section id="projects" className="relative py-24 overflow-hidden">
-            {/* 3D Space Scene Background */}
-            <SpaceScene className="opacity-70" />
+        <section id="projects" className="relative py-24 overflow-hidden transition-all duration-500">
+            {/* Subtle background overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-100px" }}
                     >
                         <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Featured Work</h2>
                         <p className="text-zinc-400 text-lg max-w-xl">
@@ -66,9 +60,9 @@ export default function Projects() {
                             key={idx}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="group glass-morphism rounded-3xl p-8 hover:translate-y-[-8px] transition-all duration-300"
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ delay: idx * 0.15, duration: 0.5 }}
+                            className="group glass-morphism rounded-3xl p-8 hover:translate-y-[-8px] hover:bg-white/10 transition-all duration-300"
                         >
                             <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 {project.icon}
@@ -100,9 +94,6 @@ export default function Projects() {
                     ))}
                 </div>
             </div>
-
-            {/* Gradient overlay for depth */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" />
         </section>
     )
 }

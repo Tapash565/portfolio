@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Projects from '@/components/sections/Projects';
+import ProjectsBackground from '@/components/layout/ProjectsBackground';
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -8,8 +9,13 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="pt-20">
-      <Projects />
+    <div className="pt-20 relative min-h-screen">
+      {/* 3D Space Scene Background - No scroll animation, faster rotations */}
+      <ProjectsBackground />
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <Projects />
 
       {/* Additional niche projects or a call to action could go here */}
       <section className="py-12 border-t border-white/5">
@@ -19,6 +25,7 @@ export default function ProjectsPage() {
           </p>
         </div>
       </section>
+      </div>
     </div>
   );
 }

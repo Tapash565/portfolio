@@ -29,12 +29,14 @@ const experiences = [
 
 export default function Experience() {
     return (
-        <section id="experience" className="py-24 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="experience" className="py-24 relative overflow-hidden transition-all duration-500">
+            {/* Subtle background overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40" />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "-100px" }}
                     className="text-center mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold mb-4">Professional Journey</h2>
@@ -50,8 +52,8 @@ export default function Experience() {
                             key={idx}
                             initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.5, delay: idx * 0.1 }}
                             className={`mb-12 relative flex items-center justify-between w-full ${idx % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
                                 }`}
                         >
@@ -61,7 +63,7 @@ export default function Experience() {
                             <div className="absolute left-[2px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-blue-500 rounded-full border-4 border-black z-10" />
 
                             <div className="w-full pl-12 md:pl-0 md:w-[45%]">
-                                <div className="glass-morphism p-6 md:p-8 rounded-3xl hover:border-blue-500/30 transition-colors">
+                                <div className="glass-morphism p-6 md:p-8 rounded-3xl hover:border-blue-500/30 hover:bg-white/10 transition-all duration-300">
                                     <div className="flex items-center gap-3 mb-2 text-blue-400">
                                         {exp.icon}
                                         <span className="text-sm font-bold tracking-widest uppercase">{exp.period}</span>

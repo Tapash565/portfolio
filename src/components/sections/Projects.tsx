@@ -16,7 +16,7 @@ const projects = [
     {
         title: "AI Intelligent Chatbot",
         description: "An advanced NLP-driven chatbot capable of context-aware conversations and intent recognition using LangGraph and Vector Databases for RAG-based responses.",
-        tech: ["LangGraph", "Vector DBs", "RAG"],
+        tech: ["LangChain", "LangGraph", "Vector Database", "RAG", "Streamlit"],
         icon: <MessageSquare className="text-purple-400" />,
         github: "https://github.com/Tapash565/chatbot-langgraph",
         demo: "#"
@@ -24,9 +24,9 @@ const projects = [
     {
         title: "Brain MRI Prediction Using CNN",
         description: "Engineered a custom TensorFlow/Keras CNN for brain tumor detection using data augmentation and hyperparameter tuning. Achieved 94% F1-score with 12% accuracy improvement over baseline.",
-        tech: ["Python", "TensorFlow", "Keras", "Scikit-learn", "CNN"],
+        tech: ["Python", "TensorFlow", "Keras", "Scikit-learn", "CNN", "Data Augmentation", "FastAPI"],
         icon: <Cpu className="text-pink-400" />,
-        github: "https://github.com/Tapash565",
+        github: "#",
         demo: "#"
     }
 ]

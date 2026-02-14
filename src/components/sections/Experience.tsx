@@ -8,21 +8,21 @@ const experiences = [
         role: "AI Engineering Intern",
         company: "Stabor India Private Limited",
         period: "Dec 2025 - Present",
-        description: "Focusing on AI-driven solutions and informatics research. Implementing advanced algorithms for data analysis and experimental modeling.",
+        description: "Developed and optimized an XGBoost demand forecasting model, improving prediction accuracy by 15–20% on real-time time-series data. Built high-throughput data pipelines for continuous streaming inputs and performed hyperparameter tuning (including L1/L2 regularization) to reduce overfitting and improve model generalization.",
         icon: <Briefcase size={20} />
     },
     {
         role: "Intern",
         company: "CSIR-National Physical Laboratory (NPL)",
         period: "Jun 2025 - Jul 2025",
-        description: "Specializing in Informatics with a strong focus on Data Science, Machine Learning, and Intelligent Systems. Maintaining a strong academic record while building practical AI solutions.",
+        description: "Implemented a custom Allan Deviation algorithm to analyze short-term and long-term noise characteristics in atomic clocks. Estimated frequency drift and benchmarked results against BIPM global standards, achieving a 20% improvement in alignment for enhanced long-term stability assessment.",
         icon: <GraduationCap size={20} />
     },
     {
         role: "Intern",
         company: "ISRO Telemetry Tracking and Command Network (ISTRAC)",
         period: "Jun 2024 - Jul 2024",
-        description: "Specializing in Informatics with a strong focus on Data Science, Machine Learning, and Intelligent Systems. Maintaining a strong academic record while building practical AI solutions.",
+        description: "Optimized a microwave cavity design in Ansys targeting the TE011 mode at 1.42040575177 GHz. Achieved precise frequency alignment with only 43.99 Hz deviation and improved cavity Q-factor through material optimization to enhance Hydrogen Maser timing stability.",
         icon: <GraduationCap size={20} />
     }
 ]

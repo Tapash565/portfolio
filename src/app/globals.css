@@ -65,7 +65,7 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r bg-clip-text text-transparent underline-offset-4 pointer-events-none;
+    @apply bg-linear-to-r bg-clip-text text-transparent underline-offset-4 pointer-events-none;
     background-image: linear-gradient(
       to right,
       var(--accent-blue),

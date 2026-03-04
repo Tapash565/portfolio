@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { blobVertexShader } from "./shaders/blobVertex.glsl";
 
@@ -30,7 +30,26 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
   const timeRef = useRef<number>(0);
   const frameCountRef = useRef<number>(0);
   const lastFPSCheckRef = useRef<number>(0);
-  const qualityRef = useRef<number>(1); // 1 = high, 0.5 = medium, 0.25 = low
+  const qualityRef = useRef<number>(1);
+  const [isDark, setIsDark] = useState(true);
+
+  // Theme detection
+  useEffect(() => {
+    const checkTheme = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
+
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -39,7 +58,6 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
     const width = container.clientWidth;
     const height = container.clientHeight;
 
-    // Determine device type for responsive quality
     const isMobile = width < 768;
     const isTablet = width >= 768 && width < 1024;
 
@@ -63,50 +81,57 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
+    // Lighting - theme aware
+    const ambientLight = new THREE.AmbientLight(0x404040, isDark ? 1.5 : 2);
     scene.add(ambientLight);
 
-    const blueLight = new THREE.PointLight(0x3b82f6, 2, 80);
+    const blueLightColor = isDark ? 0x3b82f6 : 0x60a5fa;
+    const blueLight = new THREE.PointLight(blueLightColor, isDark ? 2 : 1.5, 80);
     blueLight.position.set(20, 20, 20);
     scene.add(blueLight);
 
-    const purpleLight = new THREE.PointLight(0xa855f7, 2, 80);
+    const purpleLightColor = isDark ? 0xa855f7 : 0xa78bfa;
+    const purpleLight = new THREE.PointLight(purpleLightColor, isDark ? 2 : 1.5, 80);
     purpleLight.position.set(-20, -20, 20);
     scene.add(purpleLight);
 
-    // Determine blob count and geometry detail based on device
+    // Blob count based on device
     let blobCount: number;
     let subdivisions: [number, number];
 
     if (isMobile) {
       blobCount = 3;
-      subdivisions = [2, 2]; // ~80 vertices
+      subdivisions = [2, 2];
     } else if (isTablet) {
       blobCount = 4;
-      subdivisions = [3, 3]; // ~320 vertices
+      subdivisions = [3, 3];
     } else {
       blobCount = 5;
-      subdivisions = [4, 4]; // ~640 vertices
+      subdivisions = [4, 4];
     }
 
-    // Color palette matching portfolio theme
-    const colorPairs = [
-      { color1: new THREE.Color(0x3b82f6), color2: new THREE.Color(0x6366f1) }, // blue → indigo
-      { color1: new THREE.Color(0x6366f1), color2: new THREE.Color(0xa855f7) }, // indigo → purple
-      { color1: new THREE.Color(0xa855f7), color2: new THREE.Color(0x3b82f6) }, // purple → blue
-      { color1: new THREE.Color(0x3b82f6), color2: new THREE.Color(0xa855f7) }, // blue → purple
-      { color1: new THREE.Color(0x6366f1), color2: new THREE.Color(0x3b82f6) }, // indigo → blue
-    ];
+    // Color palette - theme aware
+    const colorPairs = isDark
+      ? [
+          { color1: new THREE.Color(0x3b82f6), color2: new THREE.Color(0x6366f1) },
+          { color1: new THREE.Color(0x6366f1), color2: new THREE.Color(0xa855f7) },
+          { color1: new THREE.Color(0xa855f7), color2: new THREE.Color(0x3b82f6) },
+          { color1: new THREE.Color(0x3b82f6), color2: new THREE.Color(0xa855f7) },
+          { color1: new THREE.Color(0x6366f1), color2: new THREE.Color(0x3b82f6) },
+        ]
+      : [
+          { color1: new THREE.Color(0x60a5fa), color2: new THREE.Color(0x818cf8) },
+          { color1: new THREE.Color(0x818cf8), color2: new THREE.Color(0xa78bfa) },
+          { color1: new THREE.Color(0xa78bfa), color2: new THREE.Color(0x60a5fa) },
+          { color1: new THREE.Color(0x60a5fa), color2: new THREE.Color(0xa78bfa) },
+          { color1: new THREE.Color(0x818cf8), color2: new THREE.Color(0x60a5fa) },
+        ];
 
-    // Create blobs
     const blobs: BlobConfig[] = [];
 
     for (let i = 0; i < blobCount; i++) {
-      // Create geometry
       const geometry = new THREE.IcosahedronGeometry(1, subdivisions[0]);
 
-      // Create shader material with vertex displacement
       const material = new THREE.ShaderMaterial({
         vertexShader: blobVertexShader,
         fragmentShader: `
@@ -116,21 +141,18 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
           varying vec3 vPosition;
 
           void main() {
-            // Gradient based on position
             float mixFactor = (vPosition.y + 1.0) * 0.5;
             vec3 color = mix(color1, color2, mixFactor);
 
-            // Fresnel effect for edge glow
             vec3 viewDirection = normalize(cameraPosition - vPosition);
             float fresnel = pow(1.0 - abs(dot(viewDirection, vNormal)), 2.0);
 
-            // Final color with transparency
             gl_FragColor = vec4(color + fresnel * 0.3, 0.2);
           }
         `,
         uniforms: {
           time: { value: 0.0 },
-          noiseScale: { value: 0.5 + i * 0.1 }, // Vary noise scale per blob
+          noiseScale: { value: 0.5 + i * 0.1 },
           displacementAmount: { value: 0.8 },
           color1: { value: colorPairs[i % colorPairs.length].color1 },
           color2: { value: colorPairs[i % colorPairs.length].color2 },
@@ -143,7 +165,6 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
 
       const mesh = new THREE.Mesh(geometry, material);
 
-      // Position blobs at different depths and locations
       const angle = (i / blobCount) * Math.PI * 2;
       const radius = 15 + Math.random() * 10;
       mesh.position.set(
@@ -152,13 +173,11 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
         -10 - i * 5
       );
 
-      // Scale based on position in array (larger in back, smaller in front)
       const scale = 8 + (blobCount - i) * 2;
       mesh.scale.setScalar(scale);
 
       scene.add(mesh);
 
-      // Store blob configuration
       blobs.push({
         mesh,
         material,
@@ -181,14 +200,12 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
 
     blobsRef.current = blobs;
 
-    // Mouse move handler
     const handleMouseMove = (event: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       mouseRef.current.x = ((event.clientX - rect.left) / width) * 2 - 1;
       mouseRef.current.y = -((event.clientY - rect.top) / height) * 2 + 1;
     };
 
-    // Resize handler
     const handleResize = () => {
       const newWidth = container.clientWidth;
       const newHeight = container.clientHeight;
@@ -201,26 +218,21 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
     container.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("resize", handleResize);
 
-    // Animation loop
     const animate = () => {
       rafRef.current = requestAnimationFrame(animate);
 
       timeRef.current += 0.01;
       frameCountRef.current++;
 
-      // Performance monitoring (check every 60 frames)
       if (frameCountRef.current % 60 === 0) {
         const now = performance.now();
         if (lastFPSCheckRef.current > 0) {
           const deltaTime = now - lastFPSCheckRef.current;
           const fps = (60 / deltaTime) * 1000;
 
-          // Reduce quality if FPS drops below 50
           if (fps < 50 && qualityRef.current > 0.25) {
             qualityRef.current *= 0.5;
-            console.log(`Reducing quality to ${qualityRef.current}`);
 
-            // Remove a blob if quality gets too low
             if (qualityRef.current <= 0.5 && blobs.length > 2) {
               const removedBlob = blobs.pop();
               if (removedBlob) {
@@ -234,12 +246,9 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
         lastFPSCheckRef.current = now;
       }
 
-      // Update each blob
       blobs.forEach((blob, index) => {
-        // Update shader time uniform
         blob.material.uniforms.time.value = timeRef.current + blob.noiseOffset.x;
 
-        // Drift animation (slow sine/cosine movement)
         const driftTime = timeRef.current * blob.driftSpeed;
         blob.mesh.position.x =
           blob.basePosition.x + Math.sin(driftTime) * blob.driftRadius;
@@ -248,18 +257,15 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
         blob.mesh.position.z =
           blob.basePosition.z + Math.sin(driftTime * 0.5) * (blob.driftRadius * 0.5);
 
-        // Rotation
         blob.mesh.rotation.x += blob.rotationSpeed.x;
         blob.mesh.rotation.y += blob.rotationSpeed.y;
         blob.mesh.rotation.z += blob.rotationSpeed.z;
 
-        // Scale pulsing (breathing effect)
         const scaleTime = timeRef.current * 0.0005 + blob.scalePhase;
         const scaleFactor = 1.0 + Math.sin(scaleTime) * 0.1;
         const baseScale = 8 + (blobCount - index) * 2;
         blob.mesh.scale.setScalar(baseScale * scaleFactor);
 
-        // Mouse interaction - blob repulsion
         const mouseWorldPos = new THREE.Vector3(
           mouseRef.current.x * 30,
           mouseRef.current.y * 30,
@@ -276,7 +282,6 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
         }
       });
 
-      // Camera subtle tilt following mouse
       camera.rotation.x = mouseRef.current.y * 0.02;
       camera.rotation.y = mouseRef.current.x * 0.02;
 
@@ -285,7 +290,6 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
 
     animate();
 
-    // Cleanup
     return () => {
       cancelAnimationFrame(rafRef.current);
       container.removeEventListener("mousemove", handleMouseMove);
@@ -303,7 +307,7 @@ export default function MorphingBlobs({ className = "" }: MorphingBlobsProps) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <div

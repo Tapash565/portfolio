@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/layout/Navigation";
+import { ThemeProvider } from "@/lib/useTheme";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,13 +34,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                document.documentElement.classList.add('dark');
+                const theme = localStorage.getItem('theme');
+                if (theme === 'light') {
+                  document.documentElement.classList.remove('dark');
+                } else if (theme === 'dark' || !theme) {
+                  document.documentElement.classList.add('dark');
+                }
               })();
             `,
           }}
@@ -48,10 +54,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased`}
       >
-        <Navigation />
-        <main>
-          {children}
-        </main>
+        <ThemeProvider>
+          <Navigation />
+          <main>
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

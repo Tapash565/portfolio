@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Github, Linkedin, FileText } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ThemeToggle from '@/components/ThemeToggle'
+import { useTheme } from '@/lib/useTheme'
 
 const navLinks = [
     { name: 'Home', href: '/' },
@@ -15,14 +17,11 @@ const navLinks = [
 ]
 
 export default function Navigation() {
+    const { theme } = useTheme()
+    const isDark = theme === 'dark'
+    const pathname = usePathname()
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
-    const pathname = usePathname()
-
-    useEffect(() => {
-        // Force dark mode
-        document.documentElement.classList.add('dark');
-    }, [])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -38,7 +37,8 @@ export default function Navigation() {
         <nav
             className={cn(
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-                isScrolled ? "glass-morphism py-3 border-white/10" : "bg-transparent py-5 border-transparent"
+                isScrolled ? "glass-morphism py-3" : "bg-transparent py-5 border-transparent",
+                isDark ? "border-white/10" : "border-black/10"
             )}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,7 +55,9 @@ export default function Navigation() {
                                 href={link.href}
                                 className={cn(
                                     "text-sm font-medium transition-colors",
-                                    pathname === link.href ? "text-blue-400" : "text-zinc-400 hover:text-white"
+                                    pathname === link.href
+                                        ? "text-blue-400"
+                                        : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
                                 )}
                             >
                                 {link.name}
@@ -64,10 +66,11 @@ export default function Navigation() {
                     </div>
 
                     <div className="hidden md:flex items-center space-x-4">
+                        <ThemeToggle />
                         <a
                             href="/resume.pdf"
                             download="Tapash_Kumar_Resume.pdf"
-                            className="text-zinc-400 hover:text-blue-400 transition-colors"
+                            className="text-zinc-600 hover:text-blue-400 dark:text-zinc-400 transition-colors"
                             aria-label="Download Resume"
                             title="Download Resume"
                         >
@@ -77,7 +80,7 @@ export default function Navigation() {
                             href="https://github.com/Tapash565"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-zinc-400 hover:text-white transition-colors"
+                            className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
                             aria-label="GitHub Profile"
                         >
                             <Github size={20} />
@@ -86,7 +89,7 @@ export default function Navigation() {
                             href="https://www.linkedin.com/in/tapashk/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-zinc-400 hover:text-white transition-colors"
+                            className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
                             aria-label="LinkedIn Profile"
                         >
                             <Linkedin size={20} />
@@ -94,10 +97,11 @@ export default function Navigation() {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden">
+                    <div className="md:hidden flex items-center gap-3">
+                        <ThemeToggle />
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="text-zinc-400 hover:text-white focus:outline-none"
+                            className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white focus:outline-none"
                             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                             aria-expanded={mobileMenuOpen}
                         >
@@ -105,7 +109,7 @@ export default function Navigation() {
                         </button>
                     </div>
                 </div>
-            </div> 
+            </div>
 
             {/* Mobile Nav */}
             <AnimatePresence>
@@ -115,7 +119,10 @@ export default function Navigation() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="md:hidden glass-morphism border-t border-white/10 overflow-hidden"
+                        className={cn(
+                            "md:hidden glass-morphism border-t overflow-hidden",
+                            isDark ? "border-white/10" : "border-black/10"
+                        )}
                     >
                         <div className="px-4 pt-2 pb-6 space-y-1">
                             {navLinks.map((link) => (
@@ -126,8 +133,10 @@ export default function Navigation() {
                                     className={cn(
                                         "block px-3 py-4 text-base font-medium rounded-lg transition-all",
                                         pathname === link.href
-                                            ? "text-blue-400 bg-white/5"
-                                            : "text-zinc-400 hover:text-white hover:bg-white/5"
+                                            ? "text-blue-400"
+                                            : isDark
+                                                ? "text-zinc-400 hover:text-white hover:bg-white/5"
+                                                : "text-zinc-600 hover:text-zinc-900 hover:bg-black/5"
                                     )}
                                 >
                                     {link.name}
@@ -136,7 +145,12 @@ export default function Navigation() {
                             <a
                                 href="/resume.pdf"
                                 download="Tapash_Kumar_Resume.pdf"
-                                className="block px-3 py-4 text-base font-medium rounded-lg text-zinc-400 hover:text-blue-400 hover:bg-white/5 transition-all"
+                                className={cn(
+                                    "block px-3 py-4 text-base font-medium rounded-lg transition-all",
+                                    isDark
+                                        ? "text-zinc-400 hover:text-blue-400 hover:bg-white/5"
+                                        : "text-zinc-600 hover:text-blue-600 hover:bg-black/5"
+                                )}
                             >
                                 Resume
                             </a>

@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from 'framer-motion'
+import { useTheme } from '@/lib/useTheme'
 
 const technologies = [
     { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
@@ -24,13 +25,18 @@ const technologies = [
 ]
 
 export default function Technologies() {
+    const { theme } = useTheme()
+    const isDark = theme === 'dark'
     // Duplicate the array for seamless infinite scroll
     const duplicatedTechnologies = [...technologies, ...technologies]
 
     return (
         <section className="py-24 relative overflow-hidden transition-all duration-500">
             {/* Subtle background overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40" />
+            <div className={`absolute inset-0 transition-colors duration-500 ${isDark
+                ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
+                : 'bg-linear-to-b from-white/20 via-transparent to-white/20'
+                }`} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -38,8 +44,8 @@ export default function Technologies() {
                     viewport={{ once: true, margin: "-100px" }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">Technologies</h2>
-                    <p className="text-zinc-500 text-lg">Tools and frameworks I work with</p>
+                    <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-zinc-900'}`}>Technologies</h2>
+                    <p className={`text-lg ${isDark ? 'text-zinc-500' : 'text-zinc-600'}`}>Tools and frameworks I work with</p>
                 </motion.div>
             </div>
 
@@ -64,7 +70,7 @@ export default function Technologies() {
                         {duplicatedTechnologies.map((tech, idx) => (
                             <div
                                 key={`${tech.name}-${idx}`}
-                                className="flex-shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
+                                className="shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
                             >
                                 <div className="w-16 h-16 flex items-center justify-center relative">
                                     <img
@@ -100,7 +106,7 @@ export default function Technologies() {
                         {duplicatedTechnologies.map((tech, idx) => (
                             <div
                                 key={`${tech.name}-reverse-${idx}`}
-                                className="flex-shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
+                                className="shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
                             >
                                 <div className="w-16 h-16 flex items-center justify-center relative">
                                     <img

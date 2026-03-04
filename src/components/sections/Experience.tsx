@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Briefcase, GraduationCap } from 'lucide-react'
+import { useTheme } from '@/lib/useTheme'
 
 const experiences = [
     {
@@ -28,10 +29,16 @@ const experiences = [
 ]
 
 export default function Experience() {
+    const { theme } = useTheme()
+    const isDark = theme === 'dark'
+
     return (
         <section id="experience" className="py-24 relative overflow-hidden transition-all duration-500">
             {/* Subtle background overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40" />
+            <div className={`absolute inset-0 transition-colors duration-500 ${isDark
+                ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
+                : 'bg-linear-to-b from-white/20 via-transparent to-white/20'
+                }`} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -39,14 +46,15 @@ export default function Experience() {
                     viewport={{ once: true, margin: "-100px" }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">Professional Journey</h2>
-                    <p className="text-zinc-500 text-lg">My career path in the world of data and intelligence.</p>
+                    <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-zinc-900'}`}>Professional Journey</h2>
+                    <p className={`text-lg ${isDark ? 'text-zinc-500' : 'text-zinc-600'}`}>My career path in the world of data and intelligence.</p>
                 </motion.div>
 
                 <div className="relative">
                     {/* Timeline Line */}
-                    <div className="absolute left-[10px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-zinc-800" />
-                    
+                    <div className={`absolute left-[10px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] ${isDark ? 'bg-zinc-800' : 'bg-zinc-200'
+                        }`} />
+
                     {experiences.map((exp, idx) => (
                         <motion.div
                             key={idx}
@@ -60,17 +68,19 @@ export default function Experience() {
                             <div className="hidden md:block w-[45%]" />
 
                             {/* Dot */}
-                            <div className="absolute left-[2px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-blue-500 rounded-full border-4 border-black z-10" />
+                            <div className={`absolute left-[2px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-blue-500 rounded-full border-4 z-10 ${isDark ? 'border-black' : 'border-white'
+                                }`} />
 
                             <div className="w-full pl-12 md:pl-0 md:w-[45%]">
-                                <div className="glass-morphism p-6 md:p-8 rounded-3xl hover:border-blue-500/30 hover:bg-white/10 transition-all duration-300">
+                                <div className={`glass-morphism p-6 md:p-8 rounded-3xl hover:border-blue-500/30 transition-all duration-300 ${isDark ? 'hover:bg-white/10' : 'hover:bg-black/5'
+                                    }`}>
                                     <div className="flex items-center gap-3 mb-2 text-blue-400">
                                         {exp.icon}
                                         <span className="text-sm font-bold tracking-widest uppercase">{exp.period}</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold mb-1">{exp.role}</h3>
-                                    <p className="text-zinc-300 font-medium mb-4">{exp.company}</p>
-                                    <p className="text-zinc-500 text-sm leading-relaxed">
+                                    <h3 className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-zinc-900'}`}>{exp.role}</h3>
+                                    <p className={`font-medium mb-4 ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>{exp.company}</p>
+                                    <p className={`text-sm leading-relaxed ${isDark ? 'text-zinc-500' : 'text-zinc-600'}`}>
                                         {exp.description}
                                     </p>
                                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 interface ParticleBackgroundProps {
@@ -16,6 +16,25 @@ export default function ParticleBackground({ className = "" }: ParticleBackgroun
   const linesRef = useRef<THREE.LineSegments | null>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
+  const [isDark, setIsDark] = useState(true);
+
+  // Theme detection
+  useEffect(() => {
+    const checkTheme = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
+
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -47,6 +66,12 @@ export default function ParticleBackground({ className = "" }: ParticleBackgroun
     const isMobile = width < 768;
     const particleCount = isMobile ? 50 : 100;
 
+    // Colors - theme aware
+    const particleColor = isDark ? 0x3b82f6 : 0x2563eb;
+    const lineColor = isDark ? 0x6366f1 : 0x4f46e5;
+    const particleOpacity = isDark ? 0.8 : 0.6;
+    const lineOpacity = isDark ? 0.15 : 0.1;
+
     // Create particles
     const positions = new Float32Array(particleCount * 3);
     const velocities: { x: number; y: number; z: number }[] = [];
@@ -68,10 +93,10 @@ export default function ParticleBackground({ className = "" }: ParticleBackgroun
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
     const material = new THREE.PointsMaterial({
-      color: 0x3b82f6,
+      color: particleColor,
       size: 0.5,
       transparent: true,
-      opacity: 0.8,
+      opacity: particleOpacity,
       sizeAttenuation: true,
     });
 
@@ -82,9 +107,9 @@ export default function ParticleBackground({ className = "" }: ParticleBackgroun
     // Create connection lines geometry
     const linesGeometry = new THREE.BufferGeometry();
     const linesMaterial = new THREE.LineBasicMaterial({
-      color: 0x6366f1,
+      color: lineColor,
       transparent: true,
-      opacity: 0.15,
+      opacity: lineOpacity,
     });
     const lines = new THREE.LineSegments(linesGeometry, linesMaterial);
     scene.add(lines);
@@ -200,7 +225,7 @@ export default function ParticleBackground({ className = "" }: ParticleBackgroun
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <div

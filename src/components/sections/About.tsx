@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Code2, BrainCircuit, Database, Laptop } from 'lucide-react'
+import { useTheme } from '@/lib/useTheme'
 
 const skillCategories = [
     {
@@ -27,10 +28,16 @@ const skillCategories = [
 ]
 
 export default function About() {
+    const { theme } = useTheme()
+    const isDark = theme === 'dark'
+
     return (
         <section id="about" className="py-24 relative overflow-hidden transition-all duration-500">
             {/* Subtle background overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40" />
+            <div className={`absolute inset-0 transition-colors duration-500 ${isDark
+                ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
+                : 'bg-linear-to-b from-white/30 via-transparent to-white/30'
+                }`} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <motion.div
@@ -39,8 +46,8 @@ export default function About() {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h2 className="text-3xl md:text-5xl font-bold mb-8 text-white">About Me</h2>
-                        <div className="space-y-6 text-zinc-300 text-lg leading-relaxed">
+                        <h2 className={`text-3xl md:text-5xl font-bold mb-8 ${isDark ? 'text-white' : 'text-zinc-900'}`}>About Me</h2>
+                        <div className={`space-y-6 text-lg leading-relaxed ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
                             <p>
                                 I am a Data Scientist and AI Engineer currently pursuing my B.Tech in Engineering Physics from
                                 <strong> Delhi Technological University (DTU)</strong>. My expertise lies in building
@@ -73,11 +80,15 @@ export default function About() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                className="p-6 glass-morphism rounded-2xl hover:border-white/20 hover:bg-white/10 transition-all duration-300 group"
+                                className={`p-6 glass-morphism rounded-2xl transition-all duration-300 group ${isDark
+                                    ? 'hover:border-white/20 hover:bg-white/10'
+                                    : 'hover:border-black/20 hover:bg-black/5'
+                                    }`}
                             >
                                 <div className="flex items-center gap-3 mb-4">
                                     {category.icon}
-                                    <h3 className="font-bold text-white uppercase tracking-wider text-sm">
+                                    <h3 className={`font-bold uppercase tracking-wider text-sm ${isDark ? 'text-white' : 'text-zinc-900'
+                                        }`}>
                                         {category.title}
                                     </h3>
                                 </div>
@@ -85,7 +96,10 @@ export default function About() {
                                     {category.skills.map(skill => (
                                         <span
                                             key={skill}
-                                            className="px-3 py-1 bg-white/5 rounded-md text-zinc-400 text-xs hover:bg-white/10 hover:text-white transition-all"
+                                            className={`px-3 py-1 rounded-md text-xs transition-all ${isDark
+                                                ? 'bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white'
+                                                : 'bg-black/5 text-zinc-600 hover:bg-black/10 hover:text-zinc-900'
+                                                }`}
                                         >
                                             {skill}
                                         </span>

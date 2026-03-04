@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 interface FloatingShapesProps {
@@ -15,6 +15,25 @@ export default function FloatingShapes({ className = "" }: FloatingShapesProps) 
   const shapesRef = useRef<THREE.Group | null>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
+  const [isDark, setIsDark] = useState(true);
+
+  // Theme detection
+  useEffect(() => {
+    const checkTheme = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
+
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -42,15 +61,24 @@ export default function FloatingShapes({ className = "" }: FloatingShapesProps) 
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 2);
+    // Colors - theme aware
+    const wireframeColor = isDark ? 0x3b82f6 : 0x2563eb;
+    const solidColor = isDark ? 0x6366f1 : 0x4f46e5;
+    const wireframeOpacity = isDark ? 0.3 : 0.25;
+    const solidOpacity = isDark ? 0.1 : 0.08;
+    const lightIntensity = isDark ? 2 : 1.5;
+
+    // Lighting - theme aware
+    const ambientLight = new THREE.AmbientLight(0x404040, lightIntensity);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x3b82f6, 2, 100);
+    const pointLightColor = isDark ? 0x3b82f6 : 0x60a5fa;
+    const pointLight1 = new THREE.PointLight(pointLightColor, lightIntensity, 100);
     pointLight1.position.set(10, 10, 10);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0xa855f7, 2, 100);
+    const pointLight2Color = isDark ? 0xa855f7 : 0xa78bfa;
+    const pointLight2 = new THREE.PointLight(pointLight2Color, lightIntensity, 100);
     pointLight2.position.set(-10, -10, 10);
     scene.add(pointLight2);
 
@@ -60,16 +88,16 @@ export default function FloatingShapes({ className = "" }: FloatingShapesProps) 
 
     // Materials
     const wireframeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x3b82f6,
+      color: wireframeColor,
       wireframe: true,
       transparent: true,
-      opacity: 0.3,
+      opacity: wireframeOpacity,
     });
 
     const solidMaterial = new THREE.MeshPhongMaterial({
-      color: 0x6366f1,
+      color: solidColor,
       transparent: true,
-      opacity: 0.1,
+      opacity: solidOpacity,
       shininess: 100,
     });
 
@@ -176,7 +204,7 @@ export default function FloatingShapes({ className = "" }: FloatingShapesProps) 
         // Floating motion
         mesh.position.y += Math.sin(time * floatSpeed * 100 + floatOffset) * 0.02;
 
-        // Mouse parallax (only apply to wireframe meshes, solids follow)
+        // Mouse parallax
         if (mesh.material === wireframeMaterial || (mesh.material as THREE.Material).transparent) {
           const parallaxX = mouseRef.current.x * 2;
           const parallaxY = mouseRef.current.y * 2;
@@ -211,7 +239,7 @@ export default function FloatingShapes({ className = "" }: FloatingShapesProps) 
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <div

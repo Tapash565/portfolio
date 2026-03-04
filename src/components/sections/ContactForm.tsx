@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { motion } from 'framer-motion';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -116,13 +117,19 @@ export default function ContactForm() {
       )}
 
       {/* Submit Button */}
-      <button
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
         type="submit"
         disabled={status === 'loading'}
-        className="w-full px-8 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-lg font-medium hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:bg-slate-800 dark:hover:bg-zinc-100 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
-        {status === 'loading' ? 'Sending...' : 'Send Message'}
-      </button>
+        {status === 'loading' ? (
+          <div className="w-5 h-5 border-2 border-white dark:border-zinc-900 border-t-transparent rounded-full animate-spin" />
+        ) : (
+          'Send Message'
+        )}
+      </motion.button>
 
       <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center">
         Note: Form submission is currently in demo mode. Integrate with your preferred email service.

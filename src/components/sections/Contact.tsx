@@ -2,36 +2,21 @@
 
 import { motion } from 'framer-motion'
 import { Mail, Linkedin, Github, Send } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useTheme } from '@/lib/useTheme'
 
 export default function Contact() {
-    const [isDark, setIsDark] = useState(true)
+    const { theme, mounted } = useTheme()
+    const isDark = theme === 'dark'
 
-    useEffect(() => {
-        const checkTheme = () => {
-            const isDarkMode = document.documentElement.classList.contains('dark')
-            setIsDark(isDarkMode)
-        }
-
-        checkTheme()
-
-        const observer = new MutationObserver(checkTheme)
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class'],
-        })
-
-        return () => observer.disconnect()
-    }, [])
+    if (!mounted) return null
 
     return (
         <section id="contact" className="py-24 relative overflow-hidden">
             {/* Background overlay for readability */}
-            <div className={`absolute inset-0 transition-colors duration-500 ${
-                isDark
-                    ? 'bg-gradient-to-b from-black/40 via-black/30 to-black/40'
-                    : 'bg-gradient-to-b from-white/60 via-white/40 to-white/60'
-            }`} />
+            <div className={`absolute inset-0 transition-colors duration-500 ${isDark
+                ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
+                : 'bg-linear-to-b from-white/60 via-white/40 to-white/60'
+                }`} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                     <motion.div
@@ -55,15 +40,13 @@ export default function Contact() {
                                 <a
                                     key={idx}
                                     href={item.href}
-                                    className={`flex items-center gap-4 group p-4 rounded-2xl glass-morphism hover:transition-all w-fit ${
-                                        isDark
-                                            ? 'hover:bg-white/5'
-                                            : 'hover:bg-black/5'
-                                    }`}
+                                    className={`flex items-center gap-4 group p-4 rounded-2xl glass-morphism hover:transition-all w-fit ${isDark
+                                        ? 'hover:bg-white/5'
+                                        : 'hover:bg-black/5'
+                                        }`}
                                 >
-                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center group-hover:text-blue-400 transition-colors ${
-                                        isDark ? 'bg-white/5' : 'bg-black/5'
-                                    }`}>
+                                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center group-hover:text-blue-400 transition-colors ${isDark ? 'bg-white/5' : 'bg-black/5'
+                                        }`}>
                                         {item.icon}
                                     </div>
                                     <div>
@@ -80,7 +63,7 @@ export default function Contact() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="glass-morphism p-8 md:p-12 rounded-[2rem]"
+                        className="glass-morphism p-8 md:p-12 rounded-4xl"
                     >
                         <div className={`mb-6 p-4 border rounded-xl ${isDark ? 'bg-amber-500/10 border-amber-500/20' : 'bg-amber-50 border-amber-200'}`}>
                             <p className={`text-sm ${isDark ? 'text-amber-400' : 'text-amber-700'}`}>
@@ -94,11 +77,10 @@ export default function Contact() {
                                     <input
                                         type="text"
                                         placeholder="John Doe"
-                                        className={`w-full border rounded-xl px-4 py-3 focus:border-blue-500/50 focus:outline-none transition-colors ${
-                                            isDark
-                                                ? 'bg-white/5 border-white/10 text-white placeholder:text-zinc-600'
-                                                : 'bg-black/5 border-black/10 text-zinc-900 placeholder:text-zinc-400'
-                                        }`}
+                                        className={`w-full border rounded-xl px-4 py-3 focus:border-blue-500/50 focus:outline-none transition-colors ${isDark
+                                            ? 'bg-white/5 border-white/10 text-white placeholder:text-zinc-600'
+                                            : 'bg-black/5 border-black/10 text-zinc-900 placeholder:text-zinc-400'
+                                            }`}
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -106,11 +88,10 @@ export default function Contact() {
                                     <input
                                         type="email"
                                         placeholder="john@example.com"
-                                        className={`w-full border rounded-xl px-4 py-3 focus:border-blue-500/50 focus:outline-none transition-colors ${
-                                            isDark
-                                                ? 'bg-white/5 border-white/10 text-white placeholder:text-zinc-600'
-                                                : 'bg-black/5 border-black/10 text-zinc-900 placeholder:text-zinc-400'
-                                        }`}
+                                        className={`w-full border rounded-xl px-4 py-3 focus:border-blue-500/50 focus:outline-none transition-colors ${isDark
+                                            ? 'bg-white/5 border-white/10 text-white placeholder:text-zinc-600'
+                                            : 'bg-black/5 border-black/10 text-zinc-900 placeholder:text-zinc-400'
+                                            }`}
                                     />
                                 </div>
                             </div>
@@ -119,16 +100,18 @@ export default function Contact() {
                                 <textarea
                                     rows={4}
                                     placeholder="How can I help you?"
-                                    className={`w-full border rounded-xl px-4 py-3 focus:border-blue-500/50 focus:outline-none transition-colors resize-none ${
-                                        isDark
-                                            ? 'bg-white/5 border-white/10 text-white placeholder:text-zinc-600'
-                                            : 'bg-black/5 border-black/10 text-zinc-900 placeholder:text-zinc-400'
-                                    }`}
+                                    className={`w-full border rounded-xl px-4 py-3 focus:border-blue-500/50 focus:outline-none transition-colors resize-none ${isDark
+                                        ? 'bg-white/5 border-white/10 text-white placeholder:text-zinc-600'
+                                        : 'bg-black/5 border-black/10 text-zinc-900 placeholder:text-zinc-400'
+                                        }`}
                                 />
                             </div>
-                            <button className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-xl font-bold flex items-center justify-center gap-2 transition-all">
+                            <button className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-md group ${isDark
+                                ? 'bg-white text-zinc-900 hover:bg-zinc-200'
+                                : 'bg-slate-900 text-white hover:bg-slate-800'
+                                }`}>
                                 Send Message
-                                <Send size={18} />
+                                <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </button>
                         </form>
                     </motion.div>

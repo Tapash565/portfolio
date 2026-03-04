@@ -9,6 +9,7 @@ export function ThemeProvider({ children, ...props }: React.ComponentProps<typeo
             attribute="class"
             defaultTheme="dark"
             enableSystem={false}
+            disableTransitionOnChange
             {...props}
         >
             {children}

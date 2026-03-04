@@ -26,6 +26,12 @@ export default function Contact() {
 
     return (
         <section id="contact" className="py-24 relative overflow-hidden">
+            {/* Background overlay for readability */}
+            <div className={`absolute inset-0 transition-colors duration-500 ${
+                isDark
+                    ? 'bg-gradient-to-b from-black/40 via-black/30 to-black/40'
+                    : 'bg-gradient-to-b from-white/60 via-white/40 to-white/60'
+            }`} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                     <motion.div

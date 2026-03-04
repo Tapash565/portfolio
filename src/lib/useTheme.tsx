@@ -1,57 +1,41 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react"
+import * as React from "react"
+import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes"
 
-type Theme = "dark" | "light"
-
-interface ThemeContextType {
-    theme: Theme
-    toggleTheme: () => void
-    setTheme: (theme: Theme) => void
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
-
-export function ThemeProvider({ children }: { children: ReactNode }) {
-    const [theme, setThemeState] = useState<Theme>("dark")
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-        const stored = localStorage.getItem("theme") as Theme | null
-
-        if (stored) {
-            setThemeState(stored)
-            document.documentElement.classList.toggle("dark", stored === "dark")
-        } else {
-            document.documentElement.classList.add("dark")
-        }
-    }, [])
-
-    const toggleTheme = () => {
-        const newTheme = theme === "dark" ? "light" : "dark"
-        setThemeState(newTheme)
-        localStorage.setItem("theme", newTheme)
-        document.documentElement.classList.toggle("dark", newTheme === "dark")
-    }
-
-    const setTheme = (newTheme: Theme) => {
-        setThemeState(newTheme)
-        localStorage.setItem("theme", newTheme)
-        document.documentElement.classList.toggle("dark", newTheme === "dark")
-    }
-
+export function ThemeProvider({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) {
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+        <NextThemesProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem={false}
+            {...props}
+        >
             {children}
-        </ThemeContext.Provider>
+        </NextThemesProvider>
     )
 }
 
 export function useTheme() {
-    const context = useContext(ThemeContext)
-    if (context === undefined) {
-        throw new Error("useTheme must be used within a ThemeProvider")
+    const { theme, setTheme, resolvedTheme } = useNextTheme()
+    const [mounted, setMounted] = React.useState(false)
+
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    // During SSR and first client render, use the default theme to avoid hydration mismatch
+    const activeTheme = mounted ? (resolvedTheme as "dark" | "light") : "dark"
+
+    const toggleTheme = () => {
+        setTheme(resolvedTheme === "dark" ? "light" : "dark")
     }
-    return context
+
+    return {
+        theme: activeTheme,
+        setTheme: (theme: "dark" | "light") => setTheme(theme),
+        toggleTheme,
+        resolvedTheme,
+        mounted
+    }
 }

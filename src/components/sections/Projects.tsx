@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Github, ExternalLink, Database, Cpu, MessageSquare } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useTheme } from '@/lib/useTheme'
 
 const projects = [
     {
@@ -33,33 +33,16 @@ const projects = [
 ]
 
 export default function Projects() {
-    const [isDark, setIsDark] = useState(true)
-
-    useEffect(() => {
-        const checkTheme = () => {
-            const isDarkMode = document.documentElement.classList.contains('dark')
-            setIsDark(isDarkMode)
-        }
-
-        checkTheme()
-
-        const observer = new MutationObserver(checkTheme)
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class'],
-        })
-
-        return () => observer.disconnect()
-    }, [])
+    const { theme } = useTheme()
+    const isDark = theme === 'dark'
 
     return (
         <section id="projects" className="relative py-24 overflow-hidden transition-all duration-500">
             {/* Subtle background overlay for readability */}
-            <div className={`absolute inset-0 transition-colors duration-500 ${
-                isDark
-                    ? 'bg-gradient-to-b from-black/40 via-black/30 to-black/40'
-                    : 'bg-gradient-to-b from-white/60 via-white/40 to-white/60'
-            }`} />
+            <div className={`absolute inset-0 transition-colors duration-500 ${isDark
+                    ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
+                    : 'bg-linear-to-b from-white/30 via-transparent to-white/30'
+                }`} />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -86,15 +69,13 @@ export default function Projects() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ delay: idx * 0.15, duration: 0.5 }}
-                            className={`group glass-morphism rounded-3xl p-8 hover:translate-y-[-8px] transition-all duration-300 ${
-                                isDark
+                            className={`group glass-morphism rounded-3xl p-8 hover:translate-y-[-8px] transition-all duration-300 ${isDark
                                     ? 'hover:bg-white/10'
                                     : 'hover:bg-black/5'
-                            }`}
+                                }`}
                         >
-                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${
-                                isDark ? 'bg-white/5' : 'bg-black/5'
-                            }`}>
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${isDark ? 'bg-white/5' : 'bg-black/5'
+                                }`}>
                                 {project.icon}
                             </div>
                             <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-zinc-900'}`}>{project.title}</h3>
@@ -104,32 +85,28 @@ export default function Projects() {
 
                             <div className="flex flex-wrap gap-2 mb-8">
                                 {project.tech.map(t => (
-                                    <span key={t} className={`text-[10px] font-bold uppercase tracking-wider border px-2 py-1 rounded-md ${
-                                        isDark
+                                    <span key={t} className={`text-[10px] font-bold uppercase tracking-wider border px-2 py-1 rounded-md ${isDark
                                             ? 'text-zinc-500 border-zinc-800'
                                             : 'text-zinc-500 border-zinc-200'
-                                    }`}>
+                                        }`}>
                                         {t}
                                     </span>
                                 ))}
                             </div>
 
-                            <div className={`flex items-center gap-4 pt-4 border-t ${
-                                isDark ? 'border-white/5' : 'border-black/5'
-                            }`}>
-                                <Link href={project.github} className={`flex items-center gap-2 text-sm transition-colors ${
-                                    isDark
+                            <div className={`flex items-center gap-4 pt-4 border-t ${isDark ? 'border-white/5' : 'border-black/5'
+                                }`}>
+                                <Link href={project.github} className={`flex items-center gap-2 text-sm transition-colors ${isDark
                                         ? 'text-zinc-400 hover:text-white'
                                         : 'text-zinc-600 hover:text-zinc-900'
-                                }`}>
+                                    }`}>
                                     <Github size={16} />
                                     Code
                                 </Link>
-                                <Link href={project.demo} className={`flex items-center gap-2 text-sm transition-colors ml-auto ${
-                                    isDark
+                                <Link href={project.demo} className={`flex items-center gap-2 text-sm transition-colors ml-auto ${isDark
                                         ? 'text-zinc-400 hover:text-white'
                                         : 'text-zinc-600 hover:text-zinc-900'
-                                }`}>
+                                    }`}>
                                     <ExternalLink size={16} />
                                     Live Demo
                                 </Link>

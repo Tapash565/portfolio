@@ -35,8 +35,8 @@ export default function About() {
         <section id="about" className="py-24 relative overflow-hidden transition-all duration-500">
             {/* Subtle background overlay for readability */}
             <div className={`absolute inset-0 transition-colors duration-500 ${isDark
-                    ? 'bg-gradient-to-b from-black/40 via-black/30 to-black/40'
-                    : 'bg-gradient-to-b from-white/60 via-white/40 to-white/60'
+                ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
+                : 'bg-linear-to-b from-white/30 via-transparent to-white/30'
                 }`} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -81,8 +81,8 @@ export default function About() {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                                 className={`p-6 glass-morphism rounded-2xl transition-all duration-300 group ${isDark
-                                        ? 'hover:border-white/20 hover:bg-white/10'
-                                        : 'hover:border-black/20 hover:bg-black/5'
+                                    ? 'hover:border-white/20 hover:bg-white/10'
+                                    : 'hover:border-black/20 hover:bg-black/5'
                                     }`}
                             >
                                 <div className="flex items-center gap-3 mb-4">
@@ -97,8 +97,8 @@ export default function About() {
                                         <span
                                             key={skill}
                                             className={`px-3 py-1 rounded-md text-xs transition-all ${isDark
-                                                    ? 'bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white'
-                                                    : 'bg-black/5 text-zinc-600 hover:bg-black/10 hover:text-zinc-900'
+                                                ? 'bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white'
+                                                : 'bg-black/5 text-zinc-600 hover:bg-black/10 hover:text-zinc-900'
                                                 }`}
                                         >
                                             {skill}

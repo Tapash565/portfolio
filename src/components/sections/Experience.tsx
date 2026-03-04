@@ -36,8 +36,8 @@ export default function Experience() {
         <section id="experience" className="py-24 relative overflow-hidden transition-all duration-500">
             {/* Subtle background overlay for readability */}
             <div className={`absolute inset-0 transition-colors duration-500 ${isDark
-                    ? 'bg-gradient-to-b from-black/40 via-black/30 to-black/40'
-                    : 'bg-gradient-to-b from-white/60 via-white/40 to-white/60'
+                ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
+                : 'bg-linear-to-b from-white/20 via-transparent to-white/20'
                 }`} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div

@@ -24,7 +24,7 @@ export default function ProjectsBackground() {
 
     return (
         <div className="fixed inset-0 w-full h-full z-0">
-            <SpaceScene />
+            <SpaceScene disableScrollAnimation={true} />
         </div>
     )
 }

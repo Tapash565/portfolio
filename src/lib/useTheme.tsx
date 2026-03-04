@@ -18,12 +18,9 @@ export function ThemeProvider({ children, ...props }: React.ComponentProps<typeo
 }
 
 export function useTheme() {
-    const { theme, setTheme, resolvedTheme } = useNextTheme()
-    const [mounted, setMounted] = React.useState(false)
-
-    React.useEffect(() => {
-        setMounted(true)
-    }, [])
+    const { setTheme, resolvedTheme } = useNextTheme()
+    // Lazy initialization to avoid hydration mismatch
+    const [mounted] = React.useState(() => typeof window !== 'undefined')
 
     // During SSR and first client render, use the default theme to avoid hydration mismatch
     const activeTheme = mounted ? (resolvedTheme as "dark" | "light") : "dark"

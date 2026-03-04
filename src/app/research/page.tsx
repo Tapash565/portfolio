@@ -2,7 +2,6 @@
 
 import Research from "@/components/sections/Research";
 import Footer from "@/components/layout/Footer";
-import BackgroundWrapper from "@/components/layout/BackgroundWrapper";
 import BackgroundScene from "@/components/layout/BackgroundScene";
 
 export default function ResearchPage() {

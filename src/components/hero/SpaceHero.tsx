@@ -24,7 +24,7 @@ export default function SpaceHero() {
                             Data Scientist | ML Engineer | AI Engineer
                         </h2>
                         <p className="text-lg md:text-xl max-w-2xl mx-auto italic text-zinc-400">
-                            "Transforming Data into Intelligent Solutions"
+                            &quot;Transforming Data into Intelligent Solutions&quot;
                         </p>
                     </motion.div>
 

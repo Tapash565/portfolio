@@ -1,8 +1,6 @@
 import { Metadata } from 'next';
 import Projects from '@/components/sections/Projects';
 import ProjectsBackground from '@/components/layout/ProjectsBackground';
-import BackgroundWrapper from '@/components/layout/BackgroundWrapper';
-import { useTheme } from '@/lib/useTheme';
 
 export const metadata: Metadata = {
   title: 'Projects',

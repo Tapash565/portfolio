@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BookOpen, Link as LinkIcon, ExternalLink, ChevronDown, FileText, Quote } from 'lucide-react'
+import { BookOpen, Link as LinkIcon, ChevronDown, FileText, Quote } from 'lucide-react'
 import { useTheme } from '@/lib/useTheme'
 
 const publications = [

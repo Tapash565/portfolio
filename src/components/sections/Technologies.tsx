@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { useTheme } from '@/lib/useTheme'
 
 const technologies = [
@@ -73,10 +74,13 @@ export default function Technologies() {
                                 className="shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
                             >
                                 <div className="w-16 h-16 flex items-center justify-center relative">
-                                    <img
+                                    <Image
                                         src={tech.logo}
                                         alt={tech.name}
+                                        width={64}
+                                        height={64}
                                         className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100"
+                                        unoptimized
                                     />
                                 </div>
                                 <span className="text-xs font-medium text-zinc-600 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
@@ -109,10 +113,13 @@ export default function Technologies() {
                                 className="shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
                             >
                                 <div className="w-16 h-16 flex items-center justify-center relative">
-                                    <img
+                                    <Image
                                         src={tech.logo}
                                         alt={tech.name}
+                                        width={64}
+                                        height={64}
                                         className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100"
+                                        unoptimized
                                     />
                                 </div>
                                 <span className="text-xs font-medium text-zinc-600 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">

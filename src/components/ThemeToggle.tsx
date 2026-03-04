@@ -1,17 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useTheme } from "@/lib/useTheme"
 import { Sun, Moon } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function ThemeToggle() {
     const { theme, toggleTheme } = useTheme()
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
+    // Lazy initialization to avoid hydration mismatch
+    const [mounted] = useState(() => typeof window !== 'undefined')
 
     if (!mounted) {
         return <div className="w-9 h-9" />

@@ -314,7 +314,7 @@ export default function SpaceScene({
       cameraRef.current = null;
       rendererRef.current = null;
     };
-  }, [isDark]);
+  }, [isDark, disableScrollAnimation, rotationSpeedMultiplier]);
 
   return (
     <div

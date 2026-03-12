@@ -49,11 +49,19 @@ export default function Technologies() {
                     viewport={{ once: true, margin: "-100px" }}
                     className="text-center mb-16"
                 >
-                    <span className="inline-block px-4 py-1 rounded-full bg-[#E5E5E5] text-[#1A1A1A] text-sm font-medium mb-6">
+                    <span className={`inline-block px-4 py-1 rounded-full text-sm font-medium mb-6 ${
+                        isDark ? 'bg-white/10 text-zinc-300' : 'bg-[#E5E5E5] text-[#1A1A1A]'
+                    }`}>
                         Tools
                     </span>
-                    <h2 className={`text-4xl md:text-5xl font-serif text-[#1A1A1A] mb-4`}>Technologies</h2>
-                    <p className={`text-lg text-zinc-600`}>Tools and frameworks I work with</p>
+
+                    <h2 className={`text-4xl md:text-5xl font-serif mb-4 ${
+                        isDark ? 'text-white' : 'text-[#1A1A1A]'
+                    }`}>Technologies</h2>
+
+                    <p className={`text-lg ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                        Tools and frameworks I work with
+                    </p>
                 </motion.div>
             </div>
 

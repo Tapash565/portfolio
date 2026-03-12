@@ -1,3 +1,5 @@
+"use client"
+
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Experience from "@/components/sections/Experience";
@@ -6,8 +8,11 @@ import Projects from "@/components/sections/Projects";
 import Footer from "@/components/layout/Footer";
 import BackgroundScene from "@/components/layout/BackgroundScene";
 import BackgroundWrapper from "@/components/layout/BackgroundWrapper";
+import { useTheme } from '@/lib/useTheme';
 
 export default function Home() {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       {/* Full-page 3D Animated Background */}
@@ -32,7 +37,11 @@ export default function Home() {
             </p>
             <a
               href="/contact"
-              className="px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-zinc-200 transition-all inline-block"
+              className={`px-10 py-4 rounded-full font-bold hover:scale-105 transition-all inline-block shadow-lg
+                ${isDark
+                  ? 'bg-white text-black hover:bg-zinc-200'
+                  : 'bg-slate-900 text-white hover:bg-slate-700 hover:shadow-xl'
+                }`}
             >
               Get In Touch
             </a>

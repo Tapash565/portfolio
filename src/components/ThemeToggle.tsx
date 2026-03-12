@@ -1,17 +1,23 @@
 "use client"
 
-import { useState } from "react"
 import { useTheme } from "@/lib/useTheme"
 import { Sun, Moon } from "lucide-react"
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 
 export default function ThemeToggle() {
     const { theme, toggleTheme } = useTheme()
-    // Lazy initialization to avoid hydration mismatch
-    const [mounted] = useState(() => typeof window !== 'undefined')
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
 
     if (!mounted) {
-        return <div className="w-9 h-9" />
+        // Render same shape as the real button so server & client match
+        return (
+            <div className="relative w-9 h-9 flex items-center justify-center rounded-full glass-morphism" />
+        )
     }
 
     return (

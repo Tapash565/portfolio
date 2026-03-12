@@ -51,6 +51,15 @@
   --border: 226 232 240;
 }
 
+.name-glow-dark {
+  text-shadow: 0 0 60px rgba(96, 165, 250, 0.4), 0 0 120px rgba(129, 140, 248, 0.2);
+}
+.name-glow-light {
+  background: linear-gradient(135deg, #1e293b, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -132,10 +141,45 @@
 @layer utilities {
   .glass-morphism {
     background: var(--glass-bg);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
     transition: all 0.3s ease;
+  }
+
+  /* Light mode gets a proper visible card */
+  .light .glass-morphism {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(203, 213, 225, 0.7);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+
+  /* Dark mode gets a glowing card on hover */
+  .dark .glass-morphism:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+  }
+
+  /* Name glow for hero */
+  .name-glow {
+    text-shadow: 0 0 60px rgba(96, 165, 250, 0.5), 0 0 120px rgba(129, 140, 248, 0.3);
+  }
+
+  /* Section heading glow blob — add to any section h2 wrapper */
+  .section-glow::before {
+    content: '';
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24rem;
+    height: 6rem;
+    background: radial-gradient(ellipse, rgba(99,102,241,0.15), transparent 70%);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
+  .light .section-glow::before {
+    background: radial-gradient(ellipse, rgba(59,130,246,0.12), transparent 70%);
   }
 
   .gradient-text {

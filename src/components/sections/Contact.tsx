@@ -40,10 +40,12 @@ export default function Contact() {
                                 <a
                                     key={idx}
                                     href={item.href}
-                                    className={`flex items-center gap-4 group p-4 rounded-2xl glass-morphism hover:transition-all w-fit ${isDark
-                                        ? 'hover:bg-white/5'
-                                        : 'hover:bg-black/5'
-                                        }`}
+                                    className={`flex items-center gap-4 group p-4 rounded-2xl glass-morphism w-fit transition-all duration-200
+                                    hover:-translate-y-1
+                                    ${isDark
+                                        ? 'hover:bg-white/8 hover:shadow-[0_4px_20px_rgba(99,102,241,0.15)]'
+                                        : 'hover:bg-white hover:shadow-lg hover:shadow-blue-100/60'
+                                    }`}
                                 >
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center group-hover:text-blue-400 transition-colors ${isDark ? 'bg-white/5' : 'bg-black/5'
                                         }`}>

@@ -55,10 +55,10 @@ export default function Navigation() {
                                 key={link.name}
                                 href={link.href}
                                 className={cn(
-                                    "text-sm font-medium transition-colors",
+                                    "text-sm font-medium transition-colors relative",
                                     pathname === link.href
-                                        ? "text-blue-400"
-                                        : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                                        ? `font-semibold ${isDark ? 'text-white' : 'text-zinc-900'} after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2px] after:rounded-full after:bg-blue-400`
+                                        : `${isDark ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`
                                 )}
                             >
                                 {link.name}

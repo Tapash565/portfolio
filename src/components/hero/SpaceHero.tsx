@@ -17,7 +17,7 @@ export default function SpaceHero() {
                         <span className="px-4 py-2 rounded-full glass-morphism text-blue-400 text-sm font-medium tracking-wider uppercase mb-6 inline-block">
                             Available for new opportunities
                         </span>
-                        <h1 className="text-5xl md:text-8xl font-bold tracking-tight mb-4 text-white">
+                        <h1 className="text-5xl md:text-8xl font-bold tracking-tight mb-4 text-white name-glow">
                             Tapash Kumar
                         </h1>
                         <h2 className="text-2xl md:text-4xl font-semibold mb-6 text-zinc-300">

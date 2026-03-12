@@ -174,7 +174,7 @@ export default function About() {
                         {/* Profile image placeholder */}
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-[#a13612]/5 rounded-xl -rotate-2" />
-                            <div className="aspect-[4/5] rounded-xl bg-[#f0e8e4] overflow-hidden relative z-10 border border-[#a13612]/10 shadow-2xl flex items-center justify-center">
+                            <div className="aspect-4/5 rounded-xl bg-[#f0e8e4] overflow-hidden relative z-10 border border-[#a13612]/10 shadow-2xl flex items-center justify-center">
                                 <div className="text-center space-y-3 px-6">
                                     <div className="w-20 h-20 rounded-full bg-[#a13612]/10 flex items-center justify-center mx-auto">
                                         <span className="text-[#a13612] text-3xl font-bold">TK</span>

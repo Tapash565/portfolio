@@ -170,9 +170,9 @@ export default function Projects() {
             >
               <div className="tilt-card flex flex-col gap-6 cursor-pointer">
                 {/* Card image area */}
-                <div className="relative w-full aspect-[4/5] overflow-hidden rounded-xl bg-[#f3eae7]">
+                <div className="relative w-full aspect-4/5 overflow-hidden rounded-xl bg-[#f3eae7]">
                   {/* Gradient placeholder with project icon */}
-                  <div className="h-full w-full flex flex-col items-center justify-center gap-6 transition-transform duration-700 group-hover:scale-105 bg-gradient-to-br from-[#f3eae7] to-[#e8d8d1]">
+                  <div className="h-full w-full flex flex-col items-center justify-center gap-6 transition-transform duration-700 group-hover:scale-105 bg-linear-to-br from-[#f3eae7] to-[#e8d8d1]">
                     <div className="w-20 h-20 rounded-full bg-white/80 flex items-center justify-center shadow-lg">
                       <span className="scale-[2]">{project.icon}</span>
                     </div>

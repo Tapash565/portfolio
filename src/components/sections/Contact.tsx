@@ -113,7 +113,7 @@ export default function Contact() {
     return (
         <section id="contact" className="py-32 relative overflow-hidden transition-colors duration-700 bg-[#F5F0E8]">
             {/* subtle split background */}
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-[#fcf9f8] -z-0" />
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-[#fcf9f8] z-0" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">

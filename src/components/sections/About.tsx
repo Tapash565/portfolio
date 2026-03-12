@@ -155,7 +155,7 @@ export default function About() {
                         className="lg:col-span-5 pb-2"
                     >
                         <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-light italic">
-                            "I believe in transforming raw data into intelligent systems that solve real problems. My approach blends rigorous ML engineering with a passion for clean, production-ready code."
+                            &quot;I believe in transforming raw data into intelligent systems that solve real problems. My approach blends rigorous ML engineering with a passion for clean, production-ready code.&quot;
                         </p>
                     </motion.div>
                 </div>
@@ -272,7 +272,7 @@ export default function About() {
                             className="mt-16 p-8 rounded-xl bg-[#a13612]/5 border-l-4 border-[#a13612] italic"
                         >
                             <p className="text-xl text-slate-800 mb-4">
-                                "An engineer who understands that the most intelligent system is one that makes complex things feel simple for the people using it."
+                                &quot;An engineer who understands that the most intelligent system is one that makes complex things feel simple for the people using it.&quot;
                             </p>
                             <cite className="text-sm font-bold text-[#a13612] uppercase tracking-widest not-italic">
                                 — My Engineering Principle

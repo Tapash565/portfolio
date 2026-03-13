@@ -60,13 +60,8 @@ const projects: Project[] = [
 ]
 
 export default function Projects() {
-  const { theme, mounted } = useTheme()
+  const { theme } = useTheme()
   const isDark = theme === 'dark'
-
-  // Prevent hydration mismatch by not rendering theme-dependent content until mounted
-  if (!mounted) {
-    return null
-  }
 
   /* ─── DARK MODE (preserved exactly) ──────────────────────── */
   if (isDark) {

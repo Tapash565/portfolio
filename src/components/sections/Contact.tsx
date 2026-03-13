@@ -5,13 +5,7 @@ import { Mail, Linkedin, Github, Send } from 'lucide-react'
 import { useTheme } from '@/lib/useTheme'
 
 export default function Contact() {
-    const { theme, mounted } = useTheme()
-
-    if (!mounted) {
-        return (
-            <section id="contact" className="py-32 relative overflow-hidden" />
-        )
-    }
+    const { theme } = useTheme()
 
     const isDark = theme === 'dark'
 

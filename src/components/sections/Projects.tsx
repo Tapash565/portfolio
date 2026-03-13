@@ -241,7 +241,7 @@ export default function Projects() {
             Open to new opportunities. Let&#39;s discuss how AI can solve your toughest challenges.
           </p>
           <a
-            href="/contact"
+            href="#contact"
             className="bg-[#a13612] text-white font-bold py-4 px-10 rounded-full hover:shadow-xl hover:shadow-[#a13612]/20 transition-all hover:-translate-y-0.5"
           >
             Get in Touch

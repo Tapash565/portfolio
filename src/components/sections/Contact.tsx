@@ -193,20 +193,22 @@ export default function Contact() {
                         <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
                             <div className="grid grid-cols-1 gap-6">
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-bold uppercase tracking-widest ml-1 text-[#4A453E]/70">
+                                    <label htmlFor='fullNameInputLight' className="text-[10px] font-bold uppercase tracking-widest ml-1 text-[#4A453E]/70">
                                         Full Name
                                     </label>
                                     <input
+                                        id='fullNameInputLight'
                                         type="text"
                                         placeholder="Enter your name"
                                         className="w-full rounded-xl border border-slate-200/70 bg-white px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#C8C0B0] focus-glow"
                                     />
                                 </div>
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-bold uppercase tracking-widest ml-1 text-[#4A453E]/70">
+                                    <label htmlFor='emailInputLight' className="text-[10px] font-bold uppercase tracking-widest ml-1 text-[#4A453E]/70">
                                         Email Address
                                     </label>
                                     <input
+                                        id='emailInputLight'
                                         type="email"
                                         placeholder="your@email.com"
                                         className="w-full rounded-xl border border-slate-200/70 bg-white px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#C8C0B0] focus-glow"
@@ -215,10 +217,11 @@ export default function Contact() {
                             </div>
 
                             <div className="space-y-3">
-                                <label className="text-[10px] font-bold uppercase tracking-widest ml-1 text-[#4A453E]/70">
+                                <label htmlFor='messageTextareaLight' className="text-[10px] font-bold uppercase tracking-widest ml-1 text-[#4A453E]/70">
                                     Your Message
                                 </label>
                                 <textarea
+                                    id='messageTextareaLight'
                                     rows={4}
                                     placeholder="Briefly describe your project or inquiry"
                                     className="w-full rounded-xl border border-slate-200/70 bg-white px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#C8C0B0] focus-glow resize-none"

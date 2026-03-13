@@ -1,80 +1,135 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Download } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export default function LightHero() {
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-linear-to-br from-orange-50 via-blue-50 to-indigo-50">
-            {/* Subtle animated blobs */}
-            <div className="absolute top-0 -left-4 w-72 h-72 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
-            <div className="absolute top-0 -right-4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
-            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+        <section className="relative min-h-screen flex flex-col overflow-hidden">
+            {/* Ambient blur blobs */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-1/4 -left-20 w-96 h-96 bg-[#a13612]/5 rounded-full blur-[100px]" />
+                <div className="absolute bottom-1/4 -right-20 w-120 h-120 bg-[#a13612]/3 rounded-full blur-[120px]" />
+            </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center space-y-8">
+            {/* Main hero content */}
+            <main className="flex-1 flex flex-col items-center justify-center px-6 text-center relative z-10 pt-24 pb-16">
+                <div className="max-w-4xl space-y-8">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        className="space-y-3"
                     >
-                        <span className="px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-sm font-medium tracking-wider uppercase mb-6 inline-block">
-                            Available for new opportunities
+                        {/* Eyebrow */}
+                        <span className="text-[#a13612] font-medium tracking-[0.2em] uppercase text-xs">
+                            AI Engineer &amp; Data Scientist
                         </span>
 
-                        <h1 className="text-5xl md:text-8xl font-bold tracking-tight mb-4 text-slate-900">
-                            Tapash Kumar
+                        {/* Big serif heading */}
+                        <h1 className="font-playfair text-[clamp(3rem,10vw,7rem)] text-[#1B110E] leading-[1.1] tracking-tight">
+                            Transforming Data into{' '}
+                            <br />
+                            <span className="italic text-[#a13612]/90">Intelligent</span> Solutions
                         </h1>
-
-                        <h2 className="text-2xl md:text-4xl font-semibold mb-6 text-slate-700">
-                            Data Scientist | ML Engineer | AI Engineer
-                        </h2>
-
-                        <p className="text-lg md:text-xl max-w-2xl mx-auto italic text-slate-500">
-                            &quot;Transforming Data into Intelligent Solutions&quot;
-                        </p>
                     </motion.div>
 
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                        className="max-w-xl mx-auto text-[#1B110E]/60 text-lg md:text-xl font-light leading-relaxed"
+                    >
+                        Specializing in Large Language Models, Vector Databases, and ML Engineering.
+                        Bridging the gap between raw compute and real-world impact.
+                    </motion.p>
+
+                    {/* CTAs */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-6"
                     >
                         <Link
                             href="#projects"
-                            className="group px-8 py-4 bg-slate-900 text-white rounded-full font-bold flex items-center gap-2 hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
                             onClick={(e) => {
-                                e.preventDefault();
-                                document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+                                e.preventDefault()
+                                document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })
                             }}
+                            className="bg-[#a13612] text-white px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-[#8a2d0f] transition-all shadow-lg shadow-[#a13612]/20 hover:-translate-y-0.5"
                         >
                             View Projects
-                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <a
                             href="/resume.pdf"
                             download="Tapash_Kumar_Resume.pdf"
-                            className="group px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-full font-bold flex items-center gap-2 hover:bg-slate-50 transition-all shadow-md hover:shadow-lg hover:-translate-y-1"
+                            className="group flex items-center gap-2 text-[#1B110E] font-medium text-sm tracking-widest uppercase py-4 px-8 hover:opacity-70 transition-all"
                         >
                             Download Resume
-                            <Download size={20} />
+                            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                         </a>
                     </motion.div>
                 </div>
-            </div>
+            </main>
 
-            {/* Clean Scroll Indicator */}
-            <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-500"
+            {/* Bottom strip */}
+            <motion.footer
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="w-full px-8 md:px-16 py-8 flex flex-col md:flex-row items-end justify-between relative z-10 border-t border-[#a13612]/5"
             >
-                <div className="w-6 h-10 border-2 rounded-full flex justify-center p-1 border-slate-500">
-                    <div className="w-1 h-2 rounded-full bg-slate-500" />
+                {/* Status */}
+                <div className="flex flex-col gap-1.5">
+                    <p className="text-[#1B110E]/40 text-[10px] uppercase tracking-[0.3em]">Current Status</p>
+                    <div className="flex items-center gap-3">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#a13612] opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#a13612]" />
+                        </span>
+                        <span className="text-[#1B110E]/80 text-xs font-medium uppercase tracking-widest">
+                            Available for new opportunities
+                        </span>
+                    </div>
                 </div>
-            </motion.div>
+
+                {/* Social + scroll */}
+                <div className="mt-6 md:mt-0 flex flex-col items-center md:items-end gap-4">
+                    <div className="flex gap-8">
+                        {[
+                            { label: 'GitHub', href: 'https://github.com/Tapash565' },
+                            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tapashk/' },
+                            { label: 'Email', href: 'mailto:kumar.tapash565@gmail.com' },
+                        ].map(({ label, href }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                target={href.startsWith('mailto') ? undefined : '_blank'}
+                                rel="noreferrer"
+                                className="text-[#1B110E]/40 hover:text-[#a13612] transition-colors uppercase text-[10px] tracking-widest font-bold"
+                            >
+                                {label}
+                            </a>
+                        ))}
+                    </div>
+                    <motion.button
+                        type="button"
+                        aria-label="Scroll to explore"
+                        animate={{ y: [0, 8, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                        className="flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
+                        onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                        <span className="text-[#1B110E]/30 text-[10px] uppercase tracking-[0.2em] font-bold">Scroll to explore</span>
+                        <svg className="text-[#1B110E]/30 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </motion.button>
+                </div>
+            </motion.footer>
         </section>
     )
 }

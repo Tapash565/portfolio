@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useTheme } from '@/lib/useTheme'
+import { useEffect, useState } from 'react'
 
 const technologies = [
     { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
@@ -27,17 +28,22 @@ const technologies = [
 
 export default function Technologies() {
     const { theme } = useTheme()
-    const isDark = theme === 'dark'
-    // Duplicate the array for seamless infinite scroll
+    const [mounted, setMounted] = useState(false)
+    
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    const isDark = mounted && theme === 'dark'
+
     const duplicatedTechnologies = [...technologies, ...technologies]
 
+    const sectionBg = !mounted
+        ? 'bg-transparent'
+        : isDark ? 'bg-transparent' : 'bg-[#FDFCF7]'
+
     return (
-        <section className="py-24 relative overflow-hidden transition-all duration-500">
-            {/* Subtle background overlay for readability */}
-            <div className={`absolute inset-0 transition-colors duration-500 ${isDark
-                ? 'bg-linear-to-b from-black/40 via-black/30 to-black/40'
-                : 'bg-linear-to-b from-white/20 via-transparent to-white/20'
-                }`} />
+        <section className={`py-24 relative overflow-hidden transition-colors duration-500 ${sectionBg}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -45,17 +51,34 @@ export default function Technologies() {
                     viewport={{ once: true, margin: "-100px" }}
                     className="text-center mb-16"
                 >
-                    <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-zinc-900'}`}>Technologies</h2>
-                    <p className={`text-lg ${isDark ? 'text-zinc-500' : 'text-zinc-600'}`}>Tools and frameworks I work with</p>
+                    <span className={`inline-block px-4 py-1 rounded-full text-sm font-medium mb-6 ${
+                        isDark ? 'bg-white/10 text-zinc-300' : 'bg-[#E5E5E5] text-[#1A1A1A]'
+                    }`}>
+                        Tools
+                    </span>
+
+                    <h2 className={`text-4xl md:text-5xl font-serif mb-4 ${
+                        isDark ? 'text-white' : 'text-[#1A1A1A]'
+                    }`}>Technologies</h2>
+
+                    <p className={`text-lg ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                        Tools and frameworks I work with
+                    </p>
                 </motion.div>
             </div>
+
+            {/* Screen reader accessible list */}
+            <ul aria-label="Technologies" className="sr-only">
+                {technologies.map(t => <li key={t.name}>{t.name}</li>)}
+            </ul>
 
             {/* Scrolling Container */}
             <div className="relative w-full overflow-hidden z-10">
                 {/* Scrolling logos - First row */}
                 <div className="flex mb-8">
                     <motion.div
-                        className="flex gap-12 pr-12"
+                        aria-hidden="true"
+                        className="flex gap-16 pr-16"
                         animate={{
                             x: [0, -50 + '%'],
                         }}
@@ -63,7 +86,7 @@ export default function Technologies() {
                             x: {
                                 repeat: Infinity,
                                 repeatType: "loop",
-                                duration: 30,
+                                duration: 40,
                                 ease: "linear",
                             },
                         }}
@@ -73,17 +96,21 @@ export default function Technologies() {
                                 key={`${tech.name}-${idx}`}
                                 className="shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
                             >
-                                <div className="w-16 h-16 flex items-center justify-center relative">
+                                <div className="w-14 h-14 flex items-center justify-center relative">
                                     <Image
                                         src={tech.logo}
-                                        alt={tech.name}
-                                        width={64}
-                                        height={64}
-                                        className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100"
+                                        alt=""
+                                        width={56}
+                                        height={56}
+                                        className="w-full h-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
                                         unoptimized
                                     />
                                 </div>
-                                <span className="text-xs font-medium text-zinc-600 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
+                                <span className={`text-xs font-medium transition-colors duration-300 ${
+                                    isDark
+                                        ? 'text-zinc-600 group-hover:text-white'
+                                        : 'text-zinc-400 group-hover:text-[#1A1A1A]'
+                                }`}>
                                     {tech.name}
                                 </span>
                             </div>
@@ -94,7 +121,8 @@ export default function Technologies() {
                 {/* Scrolling logos - Second row (reverse) */}
                 <div className="flex">
                     <motion.div
-                        className="flex gap-12 pr-12"
+                        aria-hidden="true"
+                        className="flex gap-16 pr-16"
                         animate={{
                             x: [-50 + '%', 0],
                         }}
@@ -102,7 +130,7 @@ export default function Technologies() {
                             x: {
                                 repeat: Infinity,
                                 repeatType: "loop",
-                                duration: 30,
+                                duration: 40,
                                 ease: "linear",
                             },
                         }}
@@ -112,17 +140,21 @@ export default function Technologies() {
                                 key={`${tech.name}-reverse-${idx}`}
                                 className="shrink-0 w-24 h-24 flex flex-col items-center justify-center gap-3 group"
                             >
-                                <div className="w-16 h-16 flex items-center justify-center relative">
+                                <div className="w-14 h-14 flex items-center justify-center relative">
                                     <Image
                                         src={tech.logo}
-                                        alt={tech.name}
-                                        width={64}
-                                        height={64}
-                                        className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100"
+                                        alt=""
+                                        width={56}
+                                        height={56}
+                                        className="w-full h-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
                                         unoptimized
                                     />
                                 </div>
-                                <span className="text-xs font-medium text-zinc-600 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
+                                <span className={`text-xs font-medium transition-colors duration-300 ${
+                                    isDark
+                                        ? 'text-zinc-600 group-hover:text-white'
+                                        : 'text-zinc-400 group-hover:text-[#1A1A1A]'
+                                }`}>
                                     {tech.name}
                                 </span>
                             </div>

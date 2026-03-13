@@ -9,6 +9,12 @@ export default function Contact() {
 
     const isDark = theme === 'dark'
 
+    const CONTACT_ITEMS = [
+        { icon: <Mail size={20} />, label: "Direct Email", value: "kumar.tapash565@gmail.com", href: "mailto:kumar.tapash565@gmail.com" },
+        { icon: <Linkedin size={20} />, label: "LinkedIn Professional", value: "tapashk", href: "https://www.linkedin.com/in/tapashk/" },
+        { icon: <Github size={20} />, label: "GitHub Repository", value: "Tapash565", href: "https://github.com/Tapash565" },
+    ]
+
     /* ─── DARK MODE (preserved) ───────────────────────────────────────── */
     if (isDark) {
         return (
@@ -28,11 +34,7 @@ export default function Contact() {
                             </p>
 
                             <div className="space-y-8">
-                                {[
-                                    { icon: <Mail size={20} />, label: "Direct Email", value: "kumar.tapash565@gmail.com", href: "mailto:kumar.tapash565@gmail.com" },
-                                    { icon: <Linkedin size={20} />, label: "LinkedIn Professional", value: "tapashk", href: "https://www.linkedin.com/in/tapashk/" },
-                                    { icon: <Github size={20} />, label: "GitHub Repository", value: "Tapash565", href: "https://github.com/Tapash565" },
-                                ].map((item, idx) => (
+                                {CONTACT_ITEMS.map((item, idx) => (
                                     <a
                                         key={idx}
                                         href={item.href}
@@ -146,11 +148,7 @@ export default function Contact() {
                         </p>
 
                         <div className="space-y-8">
-                            {[
-                                { icon: <Mail size={20} />, label: "Email", value: "kumar.tapash565@gmail.com", href: "mailto:kumar.tapash565@gmail.com" },
-                                { icon: <Linkedin size={20} />, label: "LinkedIn", value: "tapashk", href: "https://www.linkedin.com/in/tapashk/" },
-                                { icon: <Github size={20} />, label: "GitHub", value: "Tapash565", href: "https://github.com/Tapash565" },
-                            ].map((item, idx) => (
+                            {CONTACT_ITEMS.map((item, idx) => (
                                 <a
                                     key={idx}
                                     href={item.href}

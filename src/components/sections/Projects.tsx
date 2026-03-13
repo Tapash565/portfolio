@@ -5,14 +5,14 @@ import Link from 'next/link'
 import { useTheme } from '@/lib/useTheme'
 import React from 'react'
 
-type Project = {
+type ProjectCardItem = {
   title: string
   description: string
   tech: string[]
   icon: React.ReactElement
   github: string
   demo: string
-  borderAccent: string
+  borderAccent: keyof typeof borderMap
   year: string
   category: string
 }
@@ -23,7 +23,7 @@ const borderMap: Record<string, string> = {
   pink:   "border-t-pink-400",
 }
 
-const projects: Project[] = [
+const projects: ProjectCardItem[] = [
   {
     title: "NLP-Based Movie Recommendation System",
     description: "A sophisticated recommendation engine leveraging LangChain, FAISS, and Hugging Face for semantic search and personalized suggestions. Features integrated LLMs for contextual movie discovery.",

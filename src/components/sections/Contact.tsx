@@ -73,16 +73,18 @@ export default function Contact() {
                             <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
                                 <div className="grid grid-cols-1 gap-8">
                                     <div className="space-y-3">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest ml-1 text-zinc-500">Full Name</label>
+                                        <label htmlFor="fullNameInput" className="text-[10px] font-bold uppercase tracking-widest ml-1 text-zinc-500">Full Name</label>
                                         <input
+                                            id="fullNameInput"
                                             type="text"
                                             placeholder="Enter your name"
                                             className="w-full border-b transition-all px-1 py-4 focus:outline-none bg-transparent border-white/10 focus:border-blue-500 text-white placeholder:text-zinc-700"
                                         />
                                     </div>
                                     <div className="space-y-3">
-                                        <label className="text-[10px] font-bold uppercase tracking-widest ml-1 text-zinc-500">Email Address</label>
+                                        <label htmlFor='emailInput' className="text-[10px] font-bold uppercase tracking-widest ml-1 text-zinc-500">Email Address</label>
                                         <input
+                                            id='emailInput'
                                             type="email"
                                             placeholder="your@email.com"
                                             className="w-full border-b transition-all px-1 py-4 focus:outline-none bg-transparent border-white/10 focus:border-blue-500 text-white placeholder:text-zinc-700"
@@ -90,8 +92,9 @@ export default function Contact() {
                                     </div>
                                 </div>
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-bold uppercase tracking-widest ml-1 text-zinc-500">Your Message</label>
+                                    <label htmlFor='messageTextarea' className="text-[10px] font-bold uppercase tracking-widest ml-1 text-zinc-500">Your Message</label>
                                     <textarea
+                                        id='messageTextarea'
                                         rows={4}
                                         placeholder="Briefly describe your project or inquiry"
                                         className="w-full border-b transition-all px-1 py-4 focus:outline-none resize-none bg-transparent border-white/10 focus:border-blue-500 text-white placeholder:text-zinc-700"
@@ -223,7 +226,7 @@ export default function Contact() {
                             </div>
 
                             <div className="flex flex-col md:flex-row items-center gap-6 pt-2">
-                                <button className="liquid-button inline-flex items-center justify-center gap-3 w-full md:w-auto px-10 py-4 rounded-full border border-[#a13612] text-[#a13612] font-bold tracking-[0.2em] uppercase text-xs bg-transparent transition-all duration-300 hover:-translate-y-0.5">
+                                <button className="liquid-button group inline-flex items-center justify-center gap-3 w-full md:w-auto px-10 py-4 rounded-full border border-[#a13612] text-[#a13612] font-bold tracking-[0.2em] uppercase text-xs bg-transparent transition-all duration-300 hover:-translate-y-0.5">
                                     <span>Send Message</span>
                                     <Send size={16} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                                 </button>

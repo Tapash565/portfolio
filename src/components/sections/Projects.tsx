@@ -242,7 +242,6 @@ export default function Projects() {
           </p>
           <a
             href="/contact"
-            onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
             className="bg-[#a13612] text-white font-bold py-4 px-10 rounded-full hover:shadow-xl hover:shadow-[#a13612]/20 transition-all hover:-translate-y-0.5"
           >
             Get in Touch

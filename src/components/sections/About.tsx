@@ -28,12 +28,7 @@ const skillCategories = [
 ]
 
 // Flat skill list for light-mode pill tags
-const allSkills = [
-    "Python", "SQL", "C++", "JavaScript", "TypeScript",
-    "TensorFlow", "Keras", "PyTorch", "LangChain", "LangGraph", "FAISS",
-    "Hugging Face", "Scikit-learn", "FastAPI", "Streamlit", "Docker", "Azure",
-    "NumPy", "Pandas", "Matplotlib", "Power BI",
-]
+const allSkills = [...new Set(skillCategories.flatMap(category => category.skills))]
 
 export default function About() {
     const { theme, mounted } = useTheme()
@@ -41,7 +36,7 @@ export default function About() {
 
     // Prevent hydration mismatch by not rendering theme-dependent content until mounted
     if (!mounted) {
-        return null
+        return <section id="about" className="py-24 relative overflow-hidden" />
     }
 
     /* ─── DARK MODE (unchanged) ─────────────────────────────────── */
@@ -204,6 +199,7 @@ export default function About() {
                             <div className="flex gap-4">
                                 <a
                                     href="https://github.com/Tapash565"
+                                    aria-label='GitHub profile'
                                     target="_blank"
                                     rel="noreferrer"
                                     className="w-10 h-10 rounded-full flex items-center justify-center bg-[#a13612]/10 text-[#a13612] hover:bg-[#a13612] hover:text-white transition-all"
@@ -212,6 +208,7 @@ export default function About() {
                                 </a>
                                 <a
                                     href="mailto:kumar.tapash565@gmail.com"
+                                    aria-label='Email address'
                                     className="w-10 h-10 rounded-full flex items-center justify-center bg-[#a13612]/10 text-[#a13612] hover:bg-[#a13612] hover:text-white transition-all"
                                 >
                                     <Mail size={18} />

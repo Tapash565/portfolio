@@ -115,17 +115,19 @@ export default function LightHero() {
                             </a>
                         ))}
                     </div>
-                    <motion.div
+                    <motion.button
+                        type="button"
+                        aria-label="Scroll to explore"
                         animate={{ y: [0, 8, 0] }}
                         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                        className="flex items-center gap-2 cursor-pointer"
+                        className="flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
                         onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
                     >
                         <span className="text-[#1B110E]/30 text-[10px] uppercase tracking-[0.2em] font-bold">Scroll to explore</span>
                         <svg className="text-[#1B110E]/30 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                         </svg>
-                    </motion.div>
+                    </motion.button>
                 </div>
             </motion.footer>
         </section>

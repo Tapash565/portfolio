@@ -1,7 +1,6 @@
 "use client"
 
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
 import { useTheme } from '@/lib/useTheme'
 
 // Dynamically import Three.js component to avoid SSR issues
@@ -11,12 +10,7 @@ const SpaceScene = dynamic(
 )
 
 export default function BackgroundScene() {
-    const { theme } = useTheme()
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
+    const { theme, mounted } = useTheme()
 
     if (!mounted || theme !== 'dark') {
         return null

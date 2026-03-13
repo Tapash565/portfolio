@@ -38,10 +38,12 @@ export default function Technologies() {
 
     const duplicatedTechnologies = [...technologies, ...technologies]
 
+    const sectionBg = !mounted
+        ? 'bg-transparent'
+        : isDark ? 'bg-transparent' : 'bg-[#FDFCF7]'
+
     return (
-        <section className={`py-24 relative overflow-hidden transition-colors duration-500 ${
-                isDark ? 'bg-transparent' : 'bg-[#FDFCF7]'
-            }`}>
+        <section className={`py-24 relative overflow-hidden transition-colors duration-500 ${sectionBg}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -65,11 +67,17 @@ export default function Technologies() {
                 </motion.div>
             </div>
 
+            {/* Screen reader accessible list */}
+            <ul aria-label="Technologies" className="sr-only">
+                {technologies.map(t => <li key={t.name}>{t.name}</li>)}
+            </ul>
+
             {/* Scrolling Container */}
             <div className="relative w-full overflow-hidden z-10">
                 {/* Scrolling logos - First row */}
                 <div className="flex mb-8">
                     <motion.div
+                        aria-hidden="true"
                         className="flex gap-16 pr-16"
                         animate={{
                             x: [0, -50 + '%'],
@@ -91,7 +99,7 @@ export default function Technologies() {
                                 <div className="w-14 h-14 flex items-center justify-center relative">
                                     <Image
                                         src={tech.logo}
-                                        alt={tech.name}
+                                        alt=""
                                         width={56}
                                         height={56}
                                         className="w-full h-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
@@ -113,6 +121,7 @@ export default function Technologies() {
                 {/* Scrolling logos - Second row (reverse) */}
                 <div className="flex">
                     <motion.div
+                        aria-hidden="true"
                         className="flex gap-16 pr-16"
                         animate={{
                             x: [-50 + '%', 0],
@@ -134,7 +143,7 @@ export default function Technologies() {
                                 <div className="w-14 h-14 flex items-center justify-center relative">
                                     <Image
                                         src={tech.logo}
-                                        alt={tech.name}
+                                        alt=""
                                         width={56}
                                         height={56}
                                         className="w-full h-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"

@@ -116,12 +116,24 @@ export default function Projects() {
                 </div>
 
                 <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-                  <Link href={project.github} className="flex items-center gap-2 text-sm transition-colors text-zinc-400 hover:text-white">
-                    <Github size={16} /> Code
-                  </Link>
-                  <Link href={project.demo} className="flex items-center gap-2 text-sm transition-colors ml-auto text-zinc-400 hover:text-white">
-                    <ExternalLink size={16} /> Live Demo
-                  </Link>
+                    {project.github && project.github !== '#' ? (
+                        <Link href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm transition-colors text-zinc-400 hover:text-white">
+                            <Github size={16} /> Code
+                        </Link>
+                    ) : (
+                        <span aria-disabled="true" title="Repository not available" className="flex items-center gap-2 text-sm text-zinc-600 cursor-not-allowed">
+                            <Github size={16} /> Code
+                        </span>
+                    )}
+                    {project.demo && project.demo !== '#' ? (
+                        <Link href={project.demo} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm transition-colors ml-auto text-zinc-400 hover:text-white">
+                            <ExternalLink size={16} /> Live Demo
+                        </Link>
+                    ) : (
+                        <span aria-disabled="true" title="Demo not available" className="flex items-center gap-2 text-sm text-zinc-600 cursor-not-allowed ml-auto">
+                            <ExternalLink size={16} /> Live Demo
+                        </span>
+                    )}
                 </div>
               </motion.div>
             ))}
@@ -213,12 +225,24 @@ export default function Projects() {
 
                   {/* Links */}
                   <div className="flex items-center gap-4 pt-4 border-t border-[#a13612]/10 mt-2">
-                    <Link href={project.github} className="flex items-center gap-2 text-sm transition-colors text-[#97604e] hover:text-[#a13612]">
-                      <Github size={16} /> Code
-                    </Link>
-                    <Link href={project.demo} className="flex items-center gap-2 text-sm transition-colors ml-auto text-[#97604e] hover:text-[#a13612]">
-                      <ExternalLink size={16} /> Live Demo
-                    </Link>
+                      {project.github && project.github !== '#' ? (
+                          <Link href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm transition-colors text-[#97604e] hover:text-[#a13612]">
+                              <Github size={16} /> Code
+                          </Link>
+                      ) : (
+                          <span aria-disabled="true" title="Repository not available" className="flex items-center gap-2 text-sm text-[#97604e]/40 cursor-not-allowed">
+                              <Github size={16} /> Code
+                          </span>
+                      )}
+                      {project.demo && project.demo !== '#' ? (
+                          <Link href={project.demo} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm transition-colors ml-auto text-[#97604e] hover:text-[#a13612]">
+                              <ExternalLink size={16} /> Live Demo
+                          </Link>
+                      ) : (
+                          <span aria-disabled="true" title="Demo not available" className="flex items-center gap-2 text-sm text-[#97604e]/40 cursor-not-allowed ml-auto">
+                              <ExternalLink size={16} /> Live Demo
+                          </span>
+                      )}
                   </div>
                 </div>
               </div>

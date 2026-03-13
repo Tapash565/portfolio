@@ -9,7 +9,7 @@ export default function Contact() {
 
     if (!mounted) {
         return (
-            <section id="contact" className="py-32 relative overflow-hidden bg-[#F5F0E8]" />
+            <section id="contact" className="py-32 relative overflow-hidden" />
         )
     }
 
@@ -100,9 +100,14 @@ export default function Contact() {
                                         className="w-full border-b transition-all px-1 py-4 focus:outline-none resize-none bg-transparent border-white/10 focus:border-blue-500 text-white placeholder:text-zinc-700"
                                     />
                                 </div>
-                                <button className="w-full py-5 rounded-full font-bold flex items-center justify-center gap-3 transition-all duration-300 group bg-white text-zinc-900 hover:bg-zinc-200">
+                                <button
+                                    disabled
+                                    aria-disabled="true"
+                                    title="Submission disabled — use direct links above"
+                                    className="w-full py-5 rounded-full font-bold flex items-center justify-center gap-3 bg-white text-zinc-900 opacity-50 cursor-not-allowed"
+                                >
                                     <span className="tracking-widest uppercase text-xs">Send Message</span>
-                                    <Send size={16} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                    <Send size={16} />
                                 </button>
                             </form>
                         </motion.div>
@@ -229,9 +234,14 @@ export default function Contact() {
                             </div>
 
                             <div className="flex flex-col md:flex-row items-center gap-6 pt-2">
-                                <button className="liquid-button group inline-flex items-center justify-center gap-3 w-full md:w-auto px-10 py-4 rounded-full border border-[#a13612] text-[#a13612] font-bold tracking-[0.2em] uppercase text-xs bg-transparent transition-all duration-300 hover:-translate-y-0.5">
+                                <button
+                                    disabled
+                                    aria-disabled="true"
+                                    title="Submission disabled — use direct links on the left"
+                                    className="liquid-button inline-flex items-center justify-center gap-3 w-full md:w-auto px-10 py-4 rounded-full border border-[#a13612]/40 text-[#a13612]/40 font-bold tracking-[0.2em] uppercase text-xs bg-transparent opacity-50 cursor-not-allowed"
+                                >
                                     <span>Send Message</span>
-                                    <Send size={16} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                    <Send size={16} />
                                 </button>
 
                                 {/* Social icons inline with submit */}

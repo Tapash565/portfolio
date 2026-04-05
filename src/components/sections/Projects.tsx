@@ -1,6 +1,6 @@
 "use client"
 import { motion } from 'framer-motion'
-import { Github, ExternalLink, Database, Cpu, MessageSquare } from 'lucide-react'
+import { Github, ExternalLink, Database, Cpu, MessageSquare, Wallet } from 'lucide-react'
 import Link from 'next/link'
 import { useTheme } from '@/lib/useTheme'
 import React from 'react'
@@ -45,6 +45,17 @@ const projects: ProjectCardItem[] = [
     borderAccent: "purple",
     year: "2026",
     category: "Conversational AI"
+  },
+  {
+    title: "Personal Finance Dashboard",
+    description: "A full-stack personal finance app with secure authentication, cloud-backed transaction management, budgeting, recurring rules, multi-currency support, receipt OCR, and exportable financial insights.",
+    tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "Supabase"],
+    icon: <Wallet className="text-green-400" />,
+    github: "https://github.com/your-username/expense-tracker",
+    demo: "#",
+    borderAccent: "green",
+    year: "2026",
+    category: "FinTech"
   },
   {
     title: "Brain MRI Prediction Using CNN",

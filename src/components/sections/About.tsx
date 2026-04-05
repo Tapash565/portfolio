@@ -60,9 +60,9 @@ export default function About() {
                                     intelligent systems using LLMs, Vector Databases, and modern AI frameworks.
                                 </p>
                                 <p>
-                                    With experience as an <strong>AI Engineering Intern at the Stabor India Private Limited</strong>,
-                                    I specialize in creating robust ML models and deploying them via high-performance APIs.
-                                    I am passionate about transforming complex data into actionable intelligence.
+                                    With experience as an <strong>AI Engineer at InfoZeb Consultancy</strong>,
+                                    I specialize in creating AI agents and deploying them via high-performance APIs.
+                                    I am passionate about building intelligent systems that can solve real-world problems.
                                 </p>
                                 <p>
                                     I thrive at the intersection of AI research and software engineering, constantly

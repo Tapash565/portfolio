@@ -6,9 +6,16 @@ import { useTheme } from '@/lib/useTheme'
 
 const experiences = [
     {
+        role: "AI Engineer",
+        company: "InfoZeb Consultancy",
+        period: "Mar 2026 - Present",
+        description: "Enhanced an AI-driven HRMS platform by adding chat-based workflows for hiring and onboarding, improving candidate screening, interview scheduling, and approval-based actions. Also worked on integrating Llama-based tool-calling capabilities to strengthen workflow automation.",
+        icon: <Briefcase size={20} />
+    },
+    {
         role: "AI Engineering Intern",
         company: "Stabor India Private Limited",
-        period: "Dec 2025 - Present",
+        period: "Dec 2025 - Feb 2026",
         description: "Developed and optimized an XGBoost demand forecasting model, improving prediction accuracy by 15–20% on real-time time-series data. Built high-throughput data pipelines for continuous streaming inputs and performed hyperparameter tuning (including L1/L2 regularization) to reduce overfitting and improve model generalization.",
         icon: <Briefcase size={20} />
     },
@@ -17,14 +24,14 @@ const experiences = [
         company: "CSIR-National Physical Laboratory (NPL)",
         period: "Jun 2025 - Jul 2025",
         description: "Implemented a custom Allan Deviation algorithm to analyze short-term and long-term noise characteristics in atomic clocks. Estimated frequency drift and benchmarked results against BIPM global standards, achieving a 20% improvement in alignment for enhanced long-term stability assessment.",
-        icon: <GraduationCap size={20} />
+        icon: <Briefcase size={20} />
     },
     {
         role: "Intern",
         company: "ISRO Telemetry Tracking and Command Network (ISTRAC)",
         period: "Jun 2024 - Jul 2024",
         description: "Optimized a microwave cavity design in Ansys targeting the TE011 mode at 1.42040575177 GHz. Achieved precise frequency alignment with only 43.99 Hz deviation and improved cavity Q-factor through material optimization to enhance Hydrogen Maser timing stability.",
-        icon: <GraduationCap size={20} />
+        icon: <Briefcase size={20} />
     }
 ]
 

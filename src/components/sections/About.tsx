@@ -55,7 +55,7 @@ export default function About() {
                             <h2 className="text-3xl md:text-5xl font-bold mb-8 text-white">About Me</h2>
                             <div className="space-y-6 text-lg leading-relaxed text-zinc-300">
                                 <p>
-                                    I am a Data Scientist and AI Engineer currently pursuing my B.Tech in Engineering Physics from
+                                    I am a Data Scientist and AI Engineer with a B.Tech in Engineering Physics from
                                     <strong> Delhi Technological University (DTU)</strong>. My expertise lies in building
                                     intelligent systems using LLMs, Vector Databases, and modern AI frameworks.
                                 </p>
@@ -192,8 +192,8 @@ export default function About() {
                             </div>
                             <div>
                                 <h4 className="text-[#a13612] text-xs font-bold uppercase tracking-[0.2em] mb-2">Experience</h4>
-                                <p className="text-[#1B110E] font-medium">AI Engineering Intern</p>
-                                <p className="text-[#1B110E]/60 text-sm">Stabor India Private Limited</p>
+                                <p className="text-[#1B110E] font-medium">AI Engineer</p>
+                                <p className="text-[#1B110E]/60 text-sm">InfoZeb Consultancy</p>
                             </div>
                             <div className="editorial-rule opacity-50" />
                             <div className="flex gap-4">

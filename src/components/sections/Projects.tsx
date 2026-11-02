@@ -1,6 +1,6 @@
 "use client"
 import { motion } from 'framer-motion'
-import { Github, ExternalLink, Database, Cpu, MessageSquare, Wallet } from 'lucide-react'
+import { Github, ExternalLink, Database, Cpu, MessageSquare, Wallet, Newspaper, Globe } from 'lucide-react'
 import Link from 'next/link'
 import { useTheme } from '@/lib/useTheme'
 import React from 'react'
@@ -21,6 +21,9 @@ const borderMap: Record<string, string> = {
   blue:   "border-t-blue-400",
   purple: "border-t-purple-400",
   pink:   "border-t-pink-400",
+  green:  "border-t-green-400",
+  amber:  "border-t-amber-400",
+  sky:    "border-t-sky-400",
 }
 
 const projects: ProjectCardItem[] = [
@@ -51,22 +54,44 @@ const projects: ProjectCardItem[] = [
     description: "A full-stack personal finance app with secure authentication, cloud-backed transaction management, budgeting, recurring rules, multi-currency support, receipt OCR, and exportable financial insights.",
     tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "Supabase"],
     icon: <Wallet className="text-green-400" />,
-    github: "https://github.com/your-username/expense-tracker",
-    demo: "#",
+    github: "#", // repo is private
+    demo: "https://expense-tracker-rust-theta.vercel.app",
     borderAccent: "green",
     year: "2026",
     category: "FinTech"
   },
   {
     title: "Brain MRI Prediction Using CNN",
-    description: "Engineered a custom TensorFlow/Keras CNN for brain tumor detection using data augmentation and hyperparameter tuning. Achieved 94% F1-score with 12% accuracy improvement over baseline.",
+    description: "Engineered a custom TensorFlow/Keras CNN that classifies brain MRI scans into four classes (glioma, meningioma, pituitary, no tumor), using data augmentation and class-weight balancing. The deployed model reaches ~77% test accuracy (0.76 weighted F1) and is served through a FastAPI upload app.",
     tech: ["Python", "TensorFlow", "Keras", "Scikit-learn", "CNN", "Data Augmentation", "FastAPI"],
     icon: <Cpu className="text-pink-400" />,
-    github: "#",
+    github: "https://github.com/Tapash565/brain-tumor-prediction",
     demo: "#",
     borderAccent: "pink",
     year: "2023",
     category: "Medical AI / CV"
+  },
+  {
+    title: "FMCG Deal Radar",
+    description: "An agentic pipeline that ingests FMCG M&A and investment news from RSS feeds, de-duplicates with embeddings, filters and extracts structured deals with Llama 3, scores source credibility, and drafts a skimmable newsletter with multi-format exports.",
+    tech: ["Next.js", "TypeScript", "Groq", "Llama 3", "Hugging Face", "Vercel Blob"],
+    icon: <Newspaper className="text-amber-400" />,
+    github: "https://github.com/Tapash565/FMCG-Deal-Radar",
+    demo: "https://fmcg-deal-radar.vercel.app",
+    borderAccent: "amber",
+    year: "2026",
+    category: "Agentic AI / FinTech"
+  },
+  {
+    title: "Portfolio Website",
+    description: "This site: a Next.js App Router portfolio with a dual-theme design system, a 3D Three.js space dark mode and a warm editorial light mode, with Framer Motion animation.",
+    tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "Three.js", "Framer Motion"],
+    icon: <Globe className="text-sky-400" />,
+    github: "https://github.com/Tapash565/portfolio",
+    demo: "https://portfolio-azure-two-huvbyivizh.vercel.app/",
+    borderAccent: "sky",
+    year: "2026",
+    category: "Web / Design"
   }
 ]
 
